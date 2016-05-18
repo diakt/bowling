@@ -1,0 +1,16 @@
+
+# IDE files
+.idea
+*.iml
+
+# System files
+.DS_Store
+Thumbs.db
+__MACOSX
+
+# package
+node_modules
+
+# etc
+*.log
+*.tmp
