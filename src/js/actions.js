@@ -1,17 +1,9 @@
 var main = main || {};
 
 main.actions = {
-    roll: function (id) {
+    roll: function () {
         return {
-            type: main.actionTypes.ROLL,
-            id: id
-        }
-    },
-
-    changePlayer: function (id) {
-        return {
-            type: main.actionTypes.CHANGE_PLAYER,
-            id: id
+            type: main.actionTypes.ROLL
         }
     },
 

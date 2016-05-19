@@ -8,7 +8,6 @@ Object.assign(main.dispatcher, {
 
     register: function (action) {
         this.on('action', action);
-
         return 'action';
     }
 });

@@ -1,12 +1,14 @@
 var main = main || {};
 
-main.playerOne = Object.create(main.component).init({
+main.playerOne = Object.create(main.playerComponent).init({
     id: 1
 });
 
-main.playerTwo = Object.create(main.component).init({
+main.playerTwo = Object.create(main.playerComponent).init({
     id: 2
 });
+
+main.controls = Object.create(main.controlComponent).init();
 
 var devtools = {
     prev: function (state, action) {

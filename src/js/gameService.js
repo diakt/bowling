@@ -1,36 +1,50 @@
 var main = main || {};
 
-main.pinService = {
+main.gameService = {
 
-    // returns random number from 0 to 10
-    roll: function () {
-        return Math.floor(Math.random() * (10 - 1)) + 1;
-    },
+    // Returns random number from 0 to 10, tends to maximum on the first attempt
+    roll: function (pins) {
+        var last = pins[pins.length - 1];
+        var max = (10 - last) || 10;
+        var score;
+        var accuracy = max === 10 ? Math.floor(Math.random() * (4 - 1)) + 1 : 4;
 
-    isStrike: function (score) {
-        return score === 10;
-    },
+        switch (accuracy) {
 
-    isSpare: function (pins, isStrike) {
-        isStrike && pins.shift();
+            // On the first attempt Player has the best chance for Strike
+            case 1:
+                score = Math.round(Math.random() * (10 - 9)) + 9;
+                break;
+            case 2:
+                score = Math.round(Math.random() * (8 - 5)) + 5;
+                break;
+            case 3:
+                score = Math.round(Math.random() * (5 - 1)) + 1;
+                break;
 
-        if (!pins) {
-            return false;
+            // Second attempt is a bit difficult, a chance to get Spare mostly depends on Player's fortune
+            case 4:
+                score = Math.round(Math.random() * max);
+                break;
         }
 
-        var summ = pins.reduce(function (acc, score) {
-            acc += score;
-            return acc;
-        }, 0);
+        return score;
+    },
 
-        return summ === 10;
+    isOver: function (pins) {
+        var max = this.isStrike(pins) || this.isSpare(pins) ? 3 : 2;
+        return pins.length === max;
+    },
+
+    isStrike: function (pins) {
+        return pins[0] === 10;
+    },
+
+    isSpare: function (pins) {
+        return pins[0] + pins[1] >= 10 && pins[0] !== 10;
     },
 
     isLastFrame: function (frame) {
-        return frame === 10;
-    },
-
-    getWinner: function (players) {
-        return 0;
+        return frame === 1;
     }
 };

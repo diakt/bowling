@@ -1,6 +1,6 @@
 var main = main || {};
 
-main.component = {
+main.playerComponent = {
 
     getPin: function () {
         return this._tableCell || (this._tableCell = document.querySelector('#pin-' + this.id));
@@ -10,12 +10,15 @@ main.component = {
         return this._totalCell || (this._totalCell = document.querySelector('#score-' + this.id));
     },
 
-    getControl: function () {
-        return this._control || (this._control = document.querySelector('#control'));
+    clearChildren: function (node) {
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+        return this;
     },
 
-    addScore: function (score) {
-        if (!score) {
+    printScore: function (score) {
+        if (score === undefined) {
             return this;
         }
 
@@ -27,30 +30,31 @@ main.component = {
     },
 
     printTotal: function (score) {
-        var scoreCell = this.getScore();
-        while (scoreCell.firstChild) {
-            scoreCell.removeChild(scoreCell.firstChild);
-        }
-        scoreCell.appendChild(document.createTextNode(score));
+        this.getScore().appendChild(document.createTextNode(score));
     },
 
     render: function (state) {
         state || (state = main.store.state);
 
-        if (state.isOver) {
+        this.clearChildren(this.getPin()).clearChildren(this.getScore());
 
-        }
+        // prints all previous frames
+        state.players[this.id - 1].pins.forEach(this.printScore.bind(this));
 
-        if (state.activeId === this.id - 1) {
-            this.addScore(state.current.score).printTotal(state.players[this.id - 1].score);
+        // prints total score
+        this.printTotal(state.players[this.id - 1].score);
+
+        if (state.players[this.id - 1].isOver) {
+            this.disable();
         }
+    },
+
+    disable: function () {
+        console.log('#' + this.id + ' – disabled!');
     },
 
     init: function (options) {
         this.id = options.id;
-        this.getControl().addEventListener('click', function () {
-            main.dispatcher.dispatch(main.actions.roll(options.id - 1));
-        });
 
         main.store.onChange(this.render.bind(this));
 

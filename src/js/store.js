@@ -9,7 +9,6 @@ main.initialState = {
 
     current: {
         score: 0,
-        turn: 0,
         pins: [],
         isStrike: false,
         isSpare: false
@@ -18,7 +17,14 @@ main.initialState = {
     activeId: 0,
     players: [
         {
-            score: 0
+            score: 0,
+            pins: [[]],
+            isOver: false
+        },
+        {
+            score: 0,
+            pins: [[]],
+            isOver: false
         }
     ]
 };
@@ -42,45 +48,58 @@ Object.assign(main.store, {
     }
 });
 
-
 main.store.mainToken = main.dispatcher.register(function (action) {
     var state = Object.assign({}, main.store.state);
 
     switch (action.type) {
         case main.actionTypes.ROLL:
-            var score = main.pinService.roll();
-            state.current.turn++;
-
-            // strike
-            if (state.current.turn === 1) {
-                state.current.isStrike = main.pinService.isStrike(score);
-            } else if (state.current.turn === 2 || (state.current.turn === 3 && state.current.isStrike)) {
-
-                // change turn
-                var changeId = action.id++;
-                if (changeId > state.players.length - 1) {
-                    changeId = 0;
-                }
-
-                state.activeId = changeId;
-
-                if (!main.pinService.isLastFrame(state.frame)) {
-                    state.frame++;
-                }
+            if (state.isOver) {
+                return;
             }
+            var score = main.gameService.roll(state.current.pins);
 
-            // add score
+            // set current frame score
             state.current.score = score;
             state.current.pins.push(score);
-            state.current.isSpare = main.pinService.isSpare(state.current.pins, state.current.isStrike);
 
+            // set score to active player
+            state.players[state.activeId].score += score;
+
+            var pins = state.players[state.activeId].pins;
+            pins[pins.length - 1].push(score);
+
+            // set special achievements
+            state.current.isStrike = main.gameService.isStrike(state.current.pins);
+            state.current.isSpare = main.gameService.isSpare(state.current.pins);
+
+            // update view
             main.store.update(state);
+
+            // update the game state
+            var isOver = main.gameService.isOver(state.current.pins);
+
+            if (isOver) {
+                state.current.pins = [];
+                state.players[state.activeId].pins.push([]);
+                state.activeId++;
+
+                if (state.activeId > state.players.length - 1) {
+                    state.frame++;
+                    state.isLast = main.gameService.isLastFrame(state.frame);
+                    if (state.isLast) {
+                        state.isOver = true;
+                    } else {
+                        state.activeId = 0;
+                    }
+                }
+                main.store.update(state);
+            }
+
             break;
 
         case main.actionTypes.END_GAME:
             state.isOver = true;
-            state.winnerId = main.pinService.getWinner(state.players);
-
             main.store.update(state);
+            break;
     }
 });
