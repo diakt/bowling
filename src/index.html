@@ -10,25 +10,35 @@
         <div class="layout">
             <div class="table">
                 <div class="players">
-                    <div class="player" id="table-player-1"></div>
+                    <div class="player" id="player-1">Player 1: </div>
                 </div>
-                <div class="totals">
-                    <div class="total" id="total-player-1"></div>
+                <div class="pins">
+                    <div class="pin" id="pin-1"></div>
+                </div>
+                <div class="score">
+                    <div class="score" id="score-1"></div>
+                </div>
+            </div>
+            <div class="table">
+                <div class="players">
+                    <div class="player" id="player-2">Player 2: </div>
+                </div>
+                <div class="pins">
+                    <div class="pin" id="pin-2"></div>
+                </div>
+                <div class="score">
+                    <div class="score" id="score-2"></div>
                 </div>
             </div>
 
             <div class="controls">
-                <div class="players">
-                    <div class="player">
-                        <span class="label">Player 1: </span>
-                        <button id="control-player-1" class="roll">ROLL!</button>
-                    </div>
-                </div>
-                <div class="edit">
-                    <button id="add">Add Player</button>
-                    <button id="remove">Remove Player</button>
-                </div>
+                <button id="control" class="roll">ROLL!</button>
+                <button id="add">Add Player</button>
+                <button id="remove">Remove Player</button>
             </div>
         </div>
+
+        <script src="js/lib.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

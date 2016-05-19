@@ -22,7 +22,7 @@ html, body {
     padding-right: 50px;
 }
 
-.totals {
+.score {
     position: absolute;
     right: 0;
     top: 0;
@@ -32,7 +32,9 @@ html, body {
     margin: 0 0 20px;
 }
 
-.player {
+.pins,
+.players {
+    display: inline-block;
     min-height: 20px;
 }
 
@@ -40,7 +42,7 @@ html, body {
     display: inline-block;
 }
 
-.score {
+.pin {
     display: inline-block;
     margin: 0 3px;
 }
