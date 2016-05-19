@@ -1,0 +1,47 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.layout {
+    padding-top: 20%;
+    width: 320px;
+    margin: auto;
+    text-align: left;
+}
+
+.table {
+    position: relative;
+    padding-right: 50px;
+}
+
+.totals {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.players {
+    margin: 0 0 20px;
+}
+
+.player {
+    min-height: 20px;
+}
+
+.label {
+    display: inline-block;
+}
+
+.score {
+    display: inline-block;
+    margin: 0 3px;
+}
+
