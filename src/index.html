@@ -5,6 +5,7 @@
         <title>Bowling</title>
 
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
     </head>
     <body>
         <div class="layout">
@@ -36,7 +37,21 @@
                 <button id="add">Add Player</button>
                 <button id="remove">Remove current Player</button>
             </div>
+
+            <div class="run-tests">
+                <button id="run-tests">Run tests</button>
+            </div>
         </div>
+
+        <div id="mocha"></div>
+
+        <!-- TEST Libs -->
+        <script src="../node_modules/mocha/mocha.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
+        <script>
+            mocha.setup('tdd');
+        </script>
+
         <!-- App -->
         <script>
             // App global namespace
@@ -50,6 +65,9 @@
         <script src="js/store.js"></script>
         <script src="js/playerComponent.js"></script>
         <script src="js/controlComponent.js"></script>
+
+        <!-- Tests -->
+        <script src="js/__test__/gameService.js"></script>
 
         <!-- Entry Point -->
         <script src="js/index.js"></script>

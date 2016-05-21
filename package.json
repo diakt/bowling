@@ -1,0 +1,19 @@
+{
+  "name": "bowling",
+  "version": "1.0.0",
+  "description": "Vanilla implementation of scoring system for a bowling game",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diakt/bowling.git"
+  },
+  "author": "Dmitry Ryzhov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diakt/bowling/issues"
+  },
+  "homepage": "https://github.com/diakt/bowling#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
