@@ -1,7 +1,7 @@
-Object.assign(app, (function (events) {
+Object.assign(app, (function (eventEmitter) {
 
     // inherits event emitter
-    var dispatcher = Object.create(events);
+    var dispatcher = Object.create(eventEmitter);
 
     Object.assign(dispatcher, {
         dispatch: function (action) {
@@ -18,4 +18,4 @@ Object.assign(app, (function (events) {
         dispatcher: dispatcher
     }
 
-})(app.lib.events));
+})(app.eventEmitter));

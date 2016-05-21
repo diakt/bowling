@@ -35,4 +35,4 @@ Object.assign(app, (function (store, component) {
         playerComponent: playerComponent
     }
 
-})(app.store, app.lib.component));
+})(app.store, app.abstractComponent));

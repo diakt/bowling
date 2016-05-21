@@ -48,4 +48,4 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
         controlComponent: controlComponent
     };
 
-})(app.actions, app.dispatcher, app.store, app.lib.component));
+})(app.actions, app.dispatcher, app.store, app.abstractComponent));

@@ -1,4 +1,4 @@
-Object.assign(app, (function (events, dispatcher, actionTypes, actions, gameService) {
+Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, gameService) {
 
     var initialState = {
 
@@ -24,7 +24,7 @@ Object.assign(app, (function (events, dispatcher, actionTypes, actions, gameServ
         isOver: false
     };
 
-    var store = Object.create(events);
+    var store = Object.create(eventEmitter);
 
     // inherits event emitter
     Object.assign(store, {
@@ -122,7 +122,7 @@ Object.assign(app, (function (events, dispatcher, actionTypes, actions, gameServ
         store: store
     };
 }(
-    app.lib.events,
+    app.eventEmitter,
     app.dispatcher,
     app.actionTypes,
     app.actions,

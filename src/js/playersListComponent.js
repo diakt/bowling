@@ -37,4 +37,4 @@ Object.assign(app, (function (store, playerComponent, component) {
         playersListComponent: playersListComponent
     }
 
-})(app.store, app.playerComponent, app.lib.component));
+})(app.store, app.playerComponent, app.abstractComponent));
