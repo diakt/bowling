@@ -44,12 +44,13 @@ html, body {
 }
 .name {
     display: inline-block;
+    width: 80px;
 }
 
 .pin {
     display: inline-block;
-    margin: 0 3px;
-    padding: 2px;
+    width: 100px;
+    text-align: center;
     font-family: monospace;
 }
 .pin:nth-child(even) {background: #dedede}

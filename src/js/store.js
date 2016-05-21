@@ -1,7 +1,6 @@
 Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, gameService) {
 
     var initialState = {
-
         frame: 0,
 
         isLast: false,
@@ -16,9 +15,9 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
         players: []
     };
 
+    // inherits event emitter
     var store = Object.create(eventEmitter);
 
-    // inherits event emitter
     Object.assign(store, {
         state: initialState,
 
@@ -50,7 +49,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
             return state;
         },
 
-        updatePlayer: function (state) {
+        updateFrame: function (state) {
             var score = state.current.score;
             var frame =  state.players[state.activePlayer].pins.length - 1;
 
@@ -99,7 +98,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 state.current.score = gameService.roll(state.current.pins);
                 state.current.pins.push(state.current.score);
 
-                Object.assign(state, store.updatePlayer(state));
+                Object.assign(state, store.updateFrame(state));
                 store.update(state);
 
                 break;
