@@ -14,19 +14,14 @@ Object.assign(app, (function (events, dispatcher, actionTypes, actions, gameServ
             isSpare: false
         },
 
-        activeId: 0,
-        players: [
-            {
-                score: 0,
-                pins: [[]],
-                isOver: false
-            },
-            {
-                score: 0,
-                pins: [[]],
-                isOver: false
-            }
-        ]
+        activePlayer: null,
+        players: []
+    };
+
+    var playerState = {
+        score: 0,
+        pins: [[]],
+        isOver: false
     };
 
     var store = Object.create(events);
@@ -46,6 +41,19 @@ Object.assign(app, (function (events, dispatcher, actionTypes, actions, gameServ
             this.on('store.change', function () {
                 fn(this.state, this.lastState);
             }.bind(this));
+        },
+
+        addPlayer: function () {
+            Object.assign({}, this.state, {
+                players: this.state.players.push(Object.create(playerState))
+            });
+
+            // set active player when first one is added
+            if (this.state.players.length === 1) {
+                this.state.activePlayer = 0;
+            }
+
+            return this;
         }
     });
 
@@ -53,6 +61,10 @@ Object.assign(app, (function (events, dispatcher, actionTypes, actions, gameServ
         var state = Object.assign({}, store.state);
 
         switch (action.type) {
+            case actionTypes.ADD_PLAYER:
+                store.addPlayer().update();
+                break;
+
             case actionTypes.ROLL:
                 if (state.isOver) {
                     return;
@@ -65,9 +77,9 @@ Object.assign(app, (function (events, dispatcher, actionTypes, actions, gameServ
                 state.current.pins.push(score);
 
                 // set score to active player
-                state.players[state.activeId].score += score;
+                state.players[state.activePlayer].score += score;
 
-                var pins = state.players[state.activeId].pins;
+                var pins = state.players[state.activePlayer].pins;
                 pins[pins.length - 1].push(score);
 
                 // set special achievements
@@ -82,16 +94,16 @@ Object.assign(app, (function (events, dispatcher, actionTypes, actions, gameServ
 
                 if (isOver) {
                     state.current.pins = [];
-                    state.players[state.activeId].pins.push([]);
-                    state.activeId++;
+                    state.players[state.activePlayer].pins.push([]);
+                    state.activePlayer++;
 
-                    if (state.activeId > state.players.length - 1) {
+                    if (state.activePlayer > state.players.length - 1) {
                         state.frame++;
                         state.isLast = gameService.isLastFrame(state.frame);
                         if (state.isLast) {
                             state.isOver = true;
                         } else {
-                            state.activeId = 0;
+                            state.activePlayer = 0;
                         }
                     }
                     store.update(state);

@@ -1,75 +1,55 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Bowling</title>
+<head>
+    <meta charset="utf-8">
+    <title>Bowling</title>
 
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
-    </head>
-    <body>
-        <div class="layout">
-            <div class="table">
-                <div class="players">
-                    <div class="player" id="player-1">Player 1: </div>
-                </div>
-                <div class="pins">
-                    <div class="pin" id="pin-1"></div>
-                </div>
-                <div class="score">
-                    <div class="score" id="score-1"></div>
-                </div>
-            </div>
-            <div class="table">
-                <div class="players">
-                    <div class="player" id="player-2">Player 2: </div>
-                </div>
-                <div class="pins">
-                    <div class="pin" id="pin-2"></div>
-                </div>
-                <div class="score">
-                    <div class="score" id="score-2"></div>
-                </div>
-            </div>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+</head>
+<body>
+<div class="layout">
 
-            <div class="controls">
-                <button id="control" class="roll">ROLL!</button>
-                <button id="add">Add Player</button>
-                <button id="remove">Remove current Player</button>
-            </div>
+    <div class="table" id="players-list">Please, add new Player</div>
 
-            <div class="run-tests">
-                <button id="run-tests">Run tests</button>
-            </div>
-        </div>
+    <div class="controls" id="controls">
+        <button id="control" class="roll">ROLL!</button>
+        <button id="add">Add Player</button>
+    </div>
 
-        <div id="mocha"></div>
+    <div class="run-tests">
+        <button id="run-tests">Run tests</button>
+    </div>
+</div>
 
-        <!-- TEST Libs -->
-        <script src="../node_modules/mocha/mocha.js"></script>
-        <script src="../node_modules/chai/chai.js"></script>
-        <script>
-            mocha.setup('tdd');
-        </script>
+<div id="mocha"></div>
 
-        <!-- App -->
-        <script>
-            // App global namespace
-            window.app = {};
-        </script>
-        <script src="js/lib.js"></script>
-        <script src="js/actionTypes.js"></script>
-        <script src="js/actions.js"></script>
-        <script src="js/gameService.js"></script>
-        <script src="js/dispatcher.js"></script>
-        <script src="js/store.js"></script>
-        <script src="js/playerComponent.js"></script>
-        <script src="js/controlComponent.js"></script>
+<!-- TEST Libs -->
+<script src="../node_modules/mocha/mocha.js"></script>
+<script src="../node_modules/chai/chai.js"></script>
+<script>
+    mocha.setup('tdd');
+</script>
 
-        <!-- Tests -->
-        <script src="js/__test__/gameService.js"></script>
+<!-- App -->
+<script>
+    // App global namespace
+    window.app = {};
+</script>
+<script src="js/lib.js"></script>
+<script src="js/gameService.js"></script>
+<script src="js/actionTypes.js"></script>
+<script src="js/actions.js"></script>
+<script src="js/dispatcher.js"></script>
+<script src="js/store.js"></script>
+<script src="js/playerComponent.js"></script>
+<script src="js/playersListComponent.js"></script>
+<script src="js/controlComponent.js"></script>
 
-        <!-- Entry Point -->
-        <script src="js/index.js"></script>
-    </body>
+<!-- Tests -->
+<script src="js/__test__/gameService.js"></script>
+
+<!-- Entry Point -->
+<script src="js/index.js"></script>
+</body>
 </html>

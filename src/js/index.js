@@ -1,26 +1,18 @@
-Object.assign(app, (function (playerComponent, controlComponent) {
+Object.assign(app, (function (playersListComponent, controlComponent) {
 
-    var playerOne = Object.create(playerComponent).init({
-        id: 1
+    Object.create(playersListComponent).init({
+        element: document.querySelector('#players-list')
     });
 
-    var playerTwo = Object.create(playerComponent).init({
-        id: 2
+    Object.create(controlComponent).init({
+        element: document.querySelector('#controls')
     });
-
-    var controls = Object.create(controlComponent).init();
 
     document.querySelector('#run-tests').addEventListener('click', function () {
         this.parentNode.removeChild(this);
         mocha.run();
     });
-
-    return {
-        playerOne: playerOne,
-        playerTwo: playerTwo,
-        controls: controls
-    }
 })(
-    app.playerComponent,
+    app.playersListComponent,
     app.controlComponent
 ));

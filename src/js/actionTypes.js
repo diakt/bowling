@@ -9,6 +9,7 @@ Object.assign(app, (function () {
         SPARE: 'SPARE',
 
         // game flow
+        ADD_PLAYER: 'ADD_PLAYER',
         CHANGE_PLAYER: 'CHANGE_PLAYER',
         NEXT_FRAME: 'NEXT_FRAME',
         END_GAME: 'END_GAME'

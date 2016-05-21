@@ -10,6 +10,12 @@ Object.assign(app, (function (actionTypes) {
             return {
                 type: actionTypes.END_GAME
             }
+        },
+
+        addPlayer: function () {
+            return {
+                type: actionTypes.ADD_PLAYER
+            }
         }
     };
 
