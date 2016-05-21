@@ -1,7 +1,4 @@
-var main = main || {};
-main.lib = {};
-
-main.lib.events = (function () {
+Object.assign(app, (function () {
 
     var topics = {};
     var subUid = -1;
@@ -51,7 +48,9 @@ main.lib.events = (function () {
         return this;
     };
 
-    return events;
-}());
-
-
+    return {
+        lib: {
+            events: events
+        }
+    }
+})());

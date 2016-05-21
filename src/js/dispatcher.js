@@ -1,13 +1,21 @@
-var main = main || {};
+Object.assign(app, (function (events) {
 
-main.dispatcher = Object.create(main.lib.events);
-Object.assign(main.dispatcher, {
-    dispatch: function (action) {
-        this.emit('action', action);
-    },
+    // inherits event emitter
+    var dispatcher = Object.create(events);
 
-    register: function (action) {
-        this.on('action', action);
-        return 'action';
+    Object.assign(dispatcher, {
+        dispatch: function (action) {
+            this.emit('action', action);
+        },
+
+        register: function (action) {
+            this.on('action', action);
+            return 'action';
+        }
+    });
+
+    return {
+        dispatcher: dispatcher
     }
-});
+
+})(app.lib.events));
