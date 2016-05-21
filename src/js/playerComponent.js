@@ -7,14 +7,16 @@ Object.assign(app, (function (store, component) {
         render: function (state) {
             state || (state = store.state);
 
-            var nameElement = this.createElement('name', 'Player ' + this.id + ': ');
+            var nameElement = this.createElement('name', 'Player ' + (this.id + 1) + ': ');
             var scoreElement = this.createElement('score', state.players[this.id].score);
             var pinsElement = this.createElement('pins');
 
             this.removeChildNodes();
 
             state.players[this.id].pins.forEach(function (score) {
-                pinsElement.appendChild(this.createElement('pin', score.join(', ')));
+                if (score.length) {
+                    pinsElement.appendChild(this.createElement('pin', score.join(', ')));
+                }
             }.bind(this));
 
             this.element.appendChild(nameElement);

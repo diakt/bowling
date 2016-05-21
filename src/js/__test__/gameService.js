@@ -3,7 +3,7 @@ suite('gameService', function () {
     var gameService = app.gameService;
 
     suite('#roll()', function () {
-        function makeRollTest(pins) {
+        function makeTest(pins) {
             var result = gameService.roll(pins);
             pins.push(result);
 
@@ -13,14 +13,64 @@ suite('gameService', function () {
         }
 
         [[], [4], [5], [9]].forEach(function (pins) {
-            makeRollTest(pins);
+            makeTest(pins);
+        });
+    });
+
+    suite('#activePlayer()', function () {
+        function makeTest(pins, activePlayer, playersLen, expected) {
+            var result = gameService.activePlayer(pins, activePlayer, playersLen);
+
+            test('should be ' + expected + ' if ' +
+                'pins: ' + pins.join(', ') + '; ' +
+                'activePlayer: ' +  activePlayer + '; ' +
+                'players length: ' +  playersLen, function () {
+                assert.strictEqual(result, expected);
+            });
+        }
+
+        var mocks = [
+            {
+                pins: [6, 2],
+                activePlayer: 1,
+                playersLen: 2,
+                expected: 0
+            },
+            {
+                pins: [10, 2],
+                activePlayer: 1,
+                playersLen: 2,
+                expected: 1
+            },
+            {
+                pins: [8, 2, 2],
+                activePlayer: 0,
+                playersLen: 2,
+                expected: 1
+            },
+            {
+                pins: [8, 1],
+                activePlayer: 5,
+                playersLen: 6,
+                expected: 0
+            },
+            {
+                pins: [4, 1],
+                activePlayer: 0,
+                playersLen: 2,
+                expected: 1
+            }
+        ];
+
+        mocks.forEach(function (mock) {
+            makeTest(mock.pins, mock.activePlayer, mock.playersLen, mock.expected);
         });
     });
 
     suite('#isOver()', function () {
         function makeTest(pins, expected) {
             var result = gameService.isOver(pins);
-            test('should be ' + expected + ', when pins are ' + pins.join(', '), function () {
+            test('should be ' + expected + ', if pins are ' + pins.join(', '), function () {
                 assert.equal(result, expected);
             });
         }

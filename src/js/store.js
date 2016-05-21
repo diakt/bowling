@@ -9,19 +9,11 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
 
         current: {
             score: 0,
-            pins: [],
-            isStrike: false,
-            isSpare: false
+            pins: []
         },
 
         activePlayer: null,
         players: []
-    };
-
-    var playerState = {
-        score: 0,
-        pins: [[]],
-        isOver: false
     };
 
     var store = Object.create(eventEmitter);
@@ -29,40 +21,74 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
     // inherits event emitter
     Object.assign(store, {
         state: initialState,
-        lastState: {},
 
         update: function (state) {
-            this.lastState = Object.assign({}, this.state);
-            this.state = Object.assign({}, this.state, state);
+            this.state = Object.assign(this.state, state);
             this.emit('store.change');
         },
 
         onChange: function (fn) {
             this.on('store.change', function () {
-                fn(this.state, this.lastState);
+                fn(this.state);
             }.bind(this));
         },
 
-        addPlayer: function () {
-            Object.assign({}, this.state, {
-                players: this.state.players.push(Object.create(playerState))
+        addPlayer: function (state) {
+            state.players.push({
+                pins: [[]],
+                strikes: [],
+                spares: [],
+                score: 0,
+                exit: false
             });
 
             // set active player when first one is added
-            if (this.state.players.length === 1) {
-                this.state.activePlayer = 0;
+            if (state.players.length === 1) {
+                state.activePlayer = 0;
             }
 
-            return this;
+            return state;
+        },
+
+        updatePlayer: function (state) {
+            var score = state.current.score;
+            var frame =  state.players[state.activePlayer].pins.length - 1;
+
+            state.players[state.activePlayer].pins[frame].push(score);
+            state.players[state.activePlayer].score += score;
+
+            state.players[state.activePlayer].strikes[frame] = gameService.isStrike(state.current.pins);
+            state.players[state.activePlayer].spares[frame] = gameService.isSpare(state.current.pins);
+
+            var isCurrentOver = gameService.isOver(state.current.pins);
+            var isLastFrame = gameService.isLastFrame(frame);
+
+            if (isCurrentOver) {
+                state.players[state.activePlayer].exit = isLastFrame;
+
+                if (state.activePlayer === state.players.length - 1 && isLastFrame) {
+                    state.isOver = true;
+                } else {
+                    state.activePlayer = gameService.activePlayer(
+                        state.current.pins, state.activePlayer, state.players.length
+                    );
+                    state.frame++;
+                    state.current.pins = [];
+                    state.players[state.activePlayer].pins.push([]);
+                }
+            }
+
+            return state;
         }
     });
 
     store.appToken = dispatcher.register(function (action) {
-        var state = Object.assign({}, store.state);
+        var state = store.state;
 
         switch (action.type) {
             case actionTypes.ADD_PLAYER:
-                store.addPlayer().update();
+                Object.assign(state, store.addPlayer(state));
+                store.update(state);
                 break;
 
             case actionTypes.ROLL:
@@ -70,44 +96,11 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                     return;
                 }
 
-                var score = gameService.roll(state.current.pins);
+                state.current.score = gameService.roll(state.current.pins);
+                state.current.pins.push(state.current.score);
 
-                // set current frame score
-                state.current.score = score;
-                state.current.pins.push(score);
-
-                // set score to active player
-                state.players[state.activePlayer].score += score;
-
-                var pins = state.players[state.activePlayer].pins;
-                pins[pins.length - 1].push(score);
-
-                // set special achievements
-                state.current.isStrike = gameService.isStrike(state.current.pins);
-                state.current.isSpare = gameService.isSpare(state.current.pins);
-
-                // update view
+                Object.assign(state, store.updatePlayer(state));
                 store.update(state);
-
-                // update the game state
-                var isOver = gameService.isOver(state.current.pins);
-
-                if (isOver) {
-                    state.current.pins = [];
-                    state.players[state.activePlayer].pins.push([]);
-                    state.activePlayer++;
-
-                    if (state.activePlayer > state.players.length - 1) {
-                        state.frame++;
-                        state.isLast = gameService.isLastFrame(state.frame);
-                        if (state.isLast) {
-                            state.isOver = true;
-                        } else {
-                            state.activePlayer = 0;
-                        }
-                    }
-                    store.update(state);
-                }
 
                 break;
 

@@ -25,6 +25,8 @@ html, body {
     position: absolute;
     right: 0;
     top: 0;
+    font-family: monospace;
+    padding: 2px;
 }
 
 .players {

@@ -11,7 +11,7 @@ Object.assign(app, (function () {
 
             switch (accuracy) {
 
-                // On the first attempt Player has the best chance for Strike
+                // On the first roll Player has the best chance for Strike
                 case 1:
                     score = Math.floor(Math.random() * (11 - 8)) + 8;
                     break;
@@ -22,13 +22,24 @@ Object.assign(app, (function () {
                     score = Math.floor(Math.random() * (6 - 1)) + 1;
                     break;
 
-                // Second attempt is a bit difficult, a chance to get Spare mostly depends on Player's fortune
+                // Second roll is a bit difficult, a chance to get Spare mostly depends on Player's fortune
                 case 4:
                     score = Math.floor(Math.random() * max);
                     break;
             }
 
             return score;
+        },
+
+        activePlayer: function (pins, activePlayer, playersLen) {
+            if (this.isOver(pins)) {
+                if (activePlayer === playersLen - 1) {
+                    activePlayer = 0;
+                } else {
+                    activePlayer++;
+                }
+            }
+            return activePlayer;
         },
 
         isOver: function (pins) {
