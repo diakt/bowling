@@ -6,12 +6,6 @@ Object.assign(app, (function (actionTypes) {
             }
         },
 
-        endGame: function () {
-            return {
-                type: actionTypes.END_GAME
-            }
-        },
-
         addPlayer: function () {
             return {
                 type: actionTypes.ADD_PLAYER
