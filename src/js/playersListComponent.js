@@ -10,15 +10,14 @@ Object.assign(app, (function (store, playerComponent, component) {
 
             // prints all previous frames
             state.players.forEach(this.addPlayer.bind(this));
+
+            if (state.isOver) {
+                this.element.className += ' is-over';
+            }
         },
 
         addPlayer: function (playerState, i) {
             var player = this.createElement('player');
-
-            if (playerState.isOver) {
-                player.className += ' is-over';
-            }
-
             this.element.appendChild(player);
 
             playerComponent.init({
