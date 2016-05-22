@@ -117,10 +117,6 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 break;
 
             case actionTypes.ROLL:
-                if (state.isOver) {
-                    return;
-                }
-
                 state.current.score = action.value || gameService.roll(state.current.pins);
                 state.current.pins.push(state.current.score);
 
