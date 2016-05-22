@@ -59,7 +59,7 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
 
             this.removeChildNodes();
 
-            if (!state.isOn) {
+            if (!state.isOn && !state.isOver) {
                 this.element.appendChild(this.createElement({
                     tag: 'button',
                     class: 'control-add-player',

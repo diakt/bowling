@@ -4,7 +4,6 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
         frame: 0,
         maxScore: 0,
 
-        isLast: false,
         isOver: false,
         isOn: false,
 
@@ -82,6 +81,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 if (state.activePlayer === state.players.length - 1) {
                     if (isLastFrame) {
                         state.isOver = isLastFrame;
+                        state.isOn = !state.isOver;
                         state.maxScore = gameService.getMaxScore(state.players);
                     } else {
                         state.activePlayer = 0;
