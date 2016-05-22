@@ -1,6 +1,6 @@
 Object.assign(app, (function (eventEmitter) {
 
-    // inherits event emitter
+    // Inherits event emitter
     var dispatcher = Object.create(eventEmitter);
 
     Object.assign(dispatcher, {

@@ -1,5 +1,10 @@
 Object.assign(app, (function () {
     var abstractComponent = {
+
+        /**
+         * Removes all children from passed node or from the root element of component
+         * @param {HTMLElement} [node]
+         */
         removeChildNodes: function (node) {
             node || (node = this.element);
             while (node.firstChild) {
@@ -8,6 +13,11 @@ Object.assign(app, (function () {
             return this;
         },
 
+        /**
+         * Shorthand for native DOM methods
+         * @param {Object|String} attrs
+         * @param {String} text
+         */
         createElement: function (attrs, text) {
             var element = document.createElement((attrs && attrs.tag) || 'div');
             if (attrs) {

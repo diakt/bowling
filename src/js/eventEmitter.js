@@ -2,6 +2,11 @@ Object.assign(app, (function () {
 
     var topics = {};
     var subUid = -1;
+
+    /**
+     * Classic implementation of pop/sub pattern,
+     * doesn't pass an event object to callback as first argument
+     */
     var eventEmitter = {
         emit: function (topic, args) {
 

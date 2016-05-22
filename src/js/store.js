@@ -18,7 +18,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
         players: []
     };
 
-    // inherits event emitter
+    // Inherits event emitter
     var store = Object.create(eventEmitter);
 
     Object.assign(store, {
@@ -55,6 +55,12 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
             });
         },
 
+        /**
+         * Updates the state depending on the rules provided by the gameService
+         * Defines whether the turn should be passed to the next player
+         * @param {Object} state
+         * @returns {Object} state
+         */
         updateFrame: function (state) {
             var score = state.current.score;
 

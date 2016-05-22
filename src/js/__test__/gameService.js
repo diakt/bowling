@@ -77,7 +77,7 @@ suite('gameService', function () {
             acc.push(player.score.join(', '));
             return acc;
         }
-        
+
         function makeTest(players, expected) {
             var result = gameService.getMaxScore(players);
             var score = players.reduce(getScore, []);

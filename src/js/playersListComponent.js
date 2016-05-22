@@ -1,8 +1,29 @@
 Object.assign(app, (function (store, playerComponent, component) {
 
+    // Inherits base component with handful methods for the DOM manipulations
     var playersListComponent = Object.create(component);
 
     Object.assign(playersListComponent, {
+
+        /**
+         * Instantiates new playerComponent and inserts it into the DOM
+         * @param {Object} playerState
+         * @param {Number} i - player id
+         */
+        addPlayer: function (playerState, i) {
+            var player = this.createElement('player');
+            this.element.appendChild(player);
+
+            playerComponent.init({
+                id: i,
+                element: player
+            });
+        },
+
+        /**
+         * Renders children elements
+         * @param {Object} [state]
+         */
         render: function (state) {
             state || (state = store.state);
 
@@ -25,21 +46,14 @@ Object.assign(app, (function (store, playerComponent, component) {
                 }));
             }
 
-            // prints all previous frames
             state.players.forEach(this.addPlayer.bind(this));
-
         },
 
-        addPlayer: function (playerState, i) {
-            var player = this.createElement('player');
-            this.element.appendChild(player);
-
-            playerComponent.init({
-                id: i,
-                element: player
-            });
-        },
-
+        /**
+         * Sets the root element and subscribes on updates from Store
+         * @param {Object} options
+         * @param {HTMLElement} options.element
+         */
         init: function (options) {
             this.element = options.element;
             store.onChange(this.render.bind(this));

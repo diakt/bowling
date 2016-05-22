@@ -4,6 +4,10 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
 
     Object.assign(controlComponent, {
 
+        /**
+         * Handles clicks on child elements
+         * @param {Object} e - Native DOM Click
+         */
         routeEvents: function (e) {
             switch (e.target.className) {
                 case 'roll-random':
@@ -25,6 +29,12 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
             }
         },
 
+        /**
+         * Prints Buttons knocking exact number of pins depending on available pins
+         * after previous roll
+         *
+         * @param {Number} available - available pins in current roll
+         */
         addButtons: function (available) {
             var buttonContainer = this.createElement('buttons-container');
 
@@ -40,6 +50,10 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
             this.element.appendChild(buttonContainer);
         },
 
+        /**
+         * Renders children elements
+         * @param {Object} state
+         */
         render: function (state) {
             state || (state = store.state);
 
@@ -72,6 +86,11 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
             }
         },
 
+        /**
+         * Sets the root element and subscribes on updates from Store
+         * @param {Object} options
+         * @param {HTMLElement} options.element
+         */
         init: function (options) {
             this.element = options.element;
             this.element.addEventListener('click', this.routeEvents.bind(this));
