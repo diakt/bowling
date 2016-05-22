@@ -44,6 +44,15 @@ button {
     position: relative;
 }
 
+.player.exit .name:after {
+    content: 'exit';
+    display: block;
+    position: absolute;
+    bottom: -20px;
+    font-size: 12px;
+    left: 15px;
+}
+
 .welcome {
     display: inline-block;
     vertical-align: middle;

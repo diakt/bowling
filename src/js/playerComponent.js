@@ -16,10 +16,10 @@ Object.assign(app, (function (store, component) {
 
             var nameElement = this.createElement('name', 'Player ' + (this.id + 1) + ': ');
             var framesElement = this.createElement('frames');
-
+            var player = state.players[this.id];
             this.removeChildNodes();
 
-            state.players[this.id].pins.forEach(function (pins, i) {
+            player.pins.forEach(function (pins, i) {
                 if (pins.length === 0) {
                     return;
                 }
@@ -27,9 +27,9 @@ Object.assign(app, (function (store, component) {
                 pins = pins.slice(0);
 
                 var frameElement = this.createElement('frame');
-                var previousScore = this.countRest(state.players[this.id].score.slice(0, i + 1));
-                var isStrike = state.players[this.id].strikes[i];
-                var isSpare = state.players[this.id].spares[i];
+                var previousScore = this.countRest(player.score.slice(0, i + 1));
+                var isStrike = player.strikes[i];
+                var isSpare = player.spares[i];
                 var rest;
 
                 if (isStrike) {
@@ -57,6 +57,10 @@ Object.assign(app, (function (store, component) {
 
             this.element.appendChild(nameElement);
             this.element.appendChild(framesElement);
+
+            if (player.exit) {
+                this.element.className += ' exit';
+            }
         },
 
         init: function (options) {

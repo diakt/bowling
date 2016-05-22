@@ -70,7 +70,7 @@ Object.assign(app, (function () {
         },
 
         isLastFrame: function (frame) {
-            return frame === 10;
+            return frame === 1;
         },
 
         countArray: function (array) {
