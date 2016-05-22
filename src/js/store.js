@@ -61,19 +61,23 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
             var isCurrentOver = gameService.isOver(state.current.pins);
             var isLastFrame = gameService.isLastFrame(frame);
 
+            // manage next frame and next player
             if (isCurrentOver) {
                 state.players[state.activePlayer].exit = isLastFrame;
 
-                if (state.activePlayer === state.players.length - 1 && isLastFrame) {
-                    state.isOver = true;
+                if (state.activePlayer === state.players.length - 1) {
+                    if (isLastFrame) {
+                        state.isOver = true;
+                    } else {
+                        state.frame++;
+                        state.activePlayer = 0;
+                    }
                 } else {
-                    state.activePlayer = gameService.activePlayer(
-                        state.current.pins, state.activePlayer, state.players.length
-                    );
-                    state.frame++;
-                    state.current.pins = [];
-                    state.players[state.activePlayer].pins.push([]);
+                    state.activePlayer++;
                 }
+
+                state.current.pins = [];
+                state.players[state.activePlayer].pins.push([]);
             }
 
             return state;
@@ -100,11 +104,6 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 Object.assign(state, store.updateFrame(state));
                 store.update(state);
 
-                break;
-
-            case actionTypes.END_GAME:
-                state.isOver = true;
-                store.update(state);
                 break;
         }
     });

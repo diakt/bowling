@@ -31,17 +31,6 @@ Object.assign(app, (function () {
             return score;
         },
 
-        activePlayer: function (pins, activePlayer, playersLen) {
-            if (this.isOver(pins)) {
-                if (activePlayer === playersLen - 1) {
-                    activePlayer = 0;
-                } else {
-                    activePlayer++;
-                }
-            }
-            return activePlayer;
-        },
-
         countScore: function (pins) {
             var score;
 
@@ -70,7 +59,7 @@ Object.assign(app, (function () {
         },
 
         isLastFrame: function (frame) {
-            return frame === 10;
+            return frame === 9;
         },
 
         countArray: function (array) {

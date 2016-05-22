@@ -17,56 +17,6 @@ suite('gameService', function () {
         });
     });
 
-    suite('#activePlayer()', function () {
-        function makeTest(pins, activePlayer, playersLen, expected) {
-            var result = gameService.activePlayer(pins, activePlayer, playersLen);
-
-            test('should be ' + expected + ' if ' +
-                'pins: ' + pins.join(', ') + '; ' +
-                'activePlayer: ' + activePlayer + '; ' +
-                'players length: ' + playersLen, function () {
-                assert.strictEqual(result, expected);
-            });
-        }
-
-        var mocks = [
-            {
-                pins: [6, 2],
-                activePlayer: 1,
-                playersLen: 2,
-                expected: 0
-            },
-            {
-                pins: [10, 2],
-                activePlayer: 1,
-                playersLen: 2,
-                expected: 1
-            },
-            {
-                pins: [8, 2, 2],
-                activePlayer: 0,
-                playersLen: 2,
-                expected: 1
-            },
-            {
-                pins: [8, 1],
-                activePlayer: 5,
-                playersLen: 6,
-                expected: 0
-            },
-            {
-                pins: [4, 1],
-                activePlayer: 0,
-                playersLen: 2,
-                expected: 1
-            }
-        ];
-
-        mocks.forEach(function (mock) {
-            makeTest(mock.pins, mock.activePlayer, mock.playersLen, mock.expected);
-        });
-    });
-
     suite('#countScore()', function () {
         function makeTest(pins, expected) {
             var result = gameService.countScore(pins);
@@ -156,8 +106,8 @@ suite('gameService', function () {
             });
         }
 
-        [3, 5, 10, 12].forEach(function (frame) {
-            makeTest(frame, frame === 10);
+        [3, 5, 9, 12].forEach(function (frame) {
+            makeTest(frame, frame === 9);
         });
     });
 });
