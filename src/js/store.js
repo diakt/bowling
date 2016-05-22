@@ -2,6 +2,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
 
     var initialState = {
         frame: 0,
+        maxScore: 0,
 
         isLast: false,
         isOver: false,
@@ -40,10 +41,18 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 strikes: [],
                 spares: [],
                 score: [],
-                exit: false
+                exit: false,
+                isWinner: false
             });
 
             return state;
+        },
+
+        setWinner: function (state) {
+            state.players.forEach(function (player) {
+                var score = gameService.countArray(player.score);
+                player.isWinner = score === state.maxScore;
+            });
         },
 
         updateFrame: function (state) {
@@ -67,6 +76,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 if (state.activePlayer === state.players.length - 1) {
                     if (isLastFrame) {
                         state.isOver = isLastFrame;
+                        state.maxScore = gameService.getMaxScore(state.players);
                     } else {
                         state.activePlayer = 0;
                     }
@@ -108,15 +118,18 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 state.current.score = action.value || gameService.roll(state.current.pins);
                 state.current.pins.push(state.current.score);
 
+                // update current player
                 Object.assign(state, store.updateFrame(state));
                 store.update(state);
 
-                if (state.activePlayer === 0 && state.current.pins.length === 0) {
+                // check if the game if over or prepare for the next roll
+                if (state.isOver) {
+                    Object.assign(state, store.setWinner(state));
+                } else if (state.activePlayer === 0 && state.current.pins.length === 0) {
                     state.frame++;
                 }
 
                 store.update(state);
-
                 break;
         }
     });

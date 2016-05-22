@@ -71,6 +71,31 @@ suite('gameService', function () {
         });
     });
 
+    suite('#getMaxScore()', function () {
+
+        function getScore (acc, player) {
+            acc.push(player.score.join(', '));
+            return acc;
+        }
+        
+        function makeTest(players, expected) {
+            var result = gameService.getMaxScore(players);
+            var score = players.reduce(getScore, []);
+            test('should be ' + expected + ', if players are [' + score.join('], [ ') + ']', function () {
+                assert.equal(result, expected);
+            });
+        }
+
+        var mocks = [
+            {players: [{score: [0, 1, 3]}, {score: [4, 5, 6]}], maxScore: 15},
+            {players: [{score: [10, 11, 3]}], maxScore: 24},
+            {players: [{score: [1, 3]}, {score: [4, 6]}, {score: [14, 6]}], maxScore: 20},
+        ];
+        mocks.forEach(function (data) {
+            makeTest(data.players, data.maxScore);
+        });
+    });
+
     suite('#isOver()', function () {
         function makeTest(pins, expected) {
             var result = gameService.isOver(pins);

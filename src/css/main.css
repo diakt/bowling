@@ -53,13 +53,19 @@ button {
     position: relative;
 }
 
-.player.exit .name:after {
+.player.exit .name:after,
+.player.winner .name:after {
     content: 'exit';
     display: block;
     position: absolute;
     bottom: -20px;
     font-size: 12px;
     left: 15px;
+}
+
+.player.winner .name:after {
+    content: 'winner';
+    color: #f33;
 }
 
 .welcome {

@@ -60,6 +60,15 @@ Object.assign(app, (function () {
             return available;
         },
 
+        getMaxScore: function (players) {
+            var score = [];
+            players.forEach(function (player) {
+                score.push(this.countArray(player.score));
+            }.bind(this));
+
+            return Math.max.apply(Math, score);
+        },
+
         isOver: function (pins) {
             var max;
 

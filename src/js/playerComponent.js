@@ -60,10 +60,12 @@ Object.assign(app, (function (store, component) {
             this.element.appendChild(nameElement);
             this.element.appendChild(framesElement);
 
-            if (player.exit) {
+            if (player.exit && !state.isOver) {
                 this.element.className += ' exit';
             } else if (this.id === state.activePlayer) {
                 this.element.className += ' active';
+            } else if (player.isWinner) {
+                this.element.className += ' winner';
             }
         },
 
