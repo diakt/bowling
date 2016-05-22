@@ -19,6 +19,9 @@ button {
     margin: 10px;
 }
 
+.buttons-container button {
+    display: inline;
+}
 .layout {
     padding: 20% 50px;
     margin: auto;

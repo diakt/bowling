@@ -42,11 +42,6 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 exit: false
             });
 
-            // set active player when first one is added
-            if (state.players.length === 1) {
-                state.activePlayer = 0;
-            }
-
             return state;
         },
 
@@ -97,6 +92,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
 
             case actionTypes.START:
                 state.isOn = true;
+                state.activePlayer = 0;
                 store.update(state);
                 break;
 

@@ -25,13 +25,18 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
             }
         },
 
-        addButton: function (i) {
-            this.element.appendChild(this.createElement({
-                tag: 'button',
-                'data-value': i + 1,
-                'class': 'roll-value',
-                text: i + 1
-            }));
+        addButtons: function (max) {
+            var buttonContainer = this.createElement('buttons-container');
+            for (var i = 0; i < max; i++) {
+                buttonContainer.appendChild(this.createElement({
+                    tag: 'button',
+                    'data-value': i + 1,
+                    'class': 'roll-value',
+                    text: i + 1
+                }))
+            }
+
+            this.element.appendChild(buttonContainer);
         },
 
         render: function (state) {
@@ -64,9 +69,7 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
 
                 var last = state.current.pins[state.current.pins.length - 1];
                 var max = (10 - last) || 10;
-                for (var i = 0; i < max; i++) {
-                    this.addButton(i);
-                }
+                this.addButtons(max);
             }
         },
 
