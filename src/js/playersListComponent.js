@@ -7,13 +7,16 @@ Object.assign(app, (function (store, playerComponent, component) {
             state || (state = store.state);
 
             this.removeChildNodes();
+            if (state.isOver) {
+                this.element.appendChild(this.createElement({
+                    'class': 'is-over',
+                    text: 'The game is over'
+                }));
+            }
 
             // prints all previous frames
             state.players.forEach(this.addPlayer.bind(this));
 
-            if (state.isOver) {
-                this.element.className += ' is-over';
-            }
         },
 
         addPlayer: function (playerState, i) {

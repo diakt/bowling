@@ -15,7 +15,7 @@ Object.assign(app, (function () {
                     element.setAttribute('class', attrs);
                 } else if (typeof attrs === 'object') {
                     Object.keys(attrs).forEach(function (attrName) {
-                        if (attrName !== 'tag' || attrName !== 'text') {
+                        if (attrName !== 'tag' && attrName !== 'text') {
                             element.setAttribute(attrName, attrs[attrName]);
                         }
                     });

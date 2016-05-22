@@ -5,6 +5,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
 
         isLast: false,
         isOver: false,
+        isOn: false,
 
         current: {
             score: 0,
@@ -101,9 +102,12 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
 
                 if (state.activePlayer === 0 && state.current.pins.length === 0) {
                     state.frame++;
+                    if (state.frame === 0) {
+                        state.isOn = true;
+                    }
                 }
 
-                state.current.score = gameService.roll(state.current.pins);
+                state.current.score = action.value || gameService.roll(state.current.pins);
                 state.current.pins.push(state.current.score);
 
                 Object.assign(state, store.updateFrame(state));

@@ -1,8 +1,9 @@
 Object.assign(app, (function (actionTypes) {
     var actions = {
-        roll: function () {
+        roll: function (value) {
             return {
-                type: actionTypes.ROLL
+                type: actionTypes.ROLL,
+                value: value
             }
         },
 

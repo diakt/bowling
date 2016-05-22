@@ -29,8 +29,8 @@ button {
     min-height: 60px;
 }
 
-.scoreboard.is-over:before {
-    content: 'The game is over'
+.is-over {
+    padding: 10px;
 }
 
 .players {
