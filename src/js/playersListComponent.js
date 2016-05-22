@@ -12,6 +12,17 @@ Object.assign(app, (function (store, playerComponent, component) {
                     'class': 'is-over',
                     text: 'The game is over'
                 }));
+            } else if (state.activePlayer !== null) {
+                var text;
+                if (state.frame + 1) {
+                    text = 'Current frame: ' + (state.frame + 1);
+                } else {
+                    text = 'Waiting for the first roll'
+                }
+                this.element.appendChild(this.createElement({
+                    'class': 'frame-number',
+                    text: text
+                }));
             }
 
             // prints all previous frames

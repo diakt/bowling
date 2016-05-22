@@ -1,7 +1,7 @@
 Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, gameService) {
 
     var initialState = {
-        frame: -1,
+        frame: 0,
 
         isLast: false,
         isOver: false,
@@ -9,6 +9,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
 
         current: {
             score: 0,
+            available: 0,
             pins: []
         },
 
@@ -77,6 +78,8 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 state.players[state.activePlayer].pins.push([]);
             }
 
+            state.current.available = gameService.getAvailablePins(state.current.pins);
+
             return state;
         }
     });
@@ -93,6 +96,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
             case actionTypes.START:
                 state.isOn = true;
                 state.activePlayer = 0;
+                state.current.available = 10;
                 store.update(state);
                 break;
 
@@ -101,14 +105,16 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                     return;
                 }
 
-                if (state.activePlayer === 0 && state.current.pins.length === 0) {
-                    state.frame++;
-                }
-
                 state.current.score = action.value || gameService.roll(state.current.pins);
                 state.current.pins.push(state.current.score);
 
                 Object.assign(state, store.updateFrame(state));
+                store.update(state);
+
+                if (state.activePlayer === 0 && state.current.pins.length === 0) {
+                    state.frame++;
+                }
+
                 store.update(state);
 
                 break;

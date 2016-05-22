@@ -49,6 +49,28 @@ suite('gameService', function () {
         });
     });
 
+    suite('#getAvailablePins()', function () {
+        function makeTest(pins, expected) {
+            var result = gameService.getAvailablePins(pins);
+            test('should be ' + expected + ', if pins are ' + pins.join(', '), function () {
+                assert.equal(result, expected);
+            });
+        }
+
+        var mocks = [
+            {pins: [1], available: 9},
+            {pins: [1, 9], available: 10},
+            {pins: [10, 9], available: 1},
+            {pins: [10, 10], available: 0},
+            {pins: [0, 10], available: 10},
+            {pins: [5, 5, 5], available: 5},
+            {pins: [5, 5, 0], available: 10}
+        ];
+        mocks.forEach(function (data) {
+            makeTest(data.pins, data.available);
+        });
+    });
+
     suite('#isOver()', function () {
         function makeTest(pins, expected) {
             var result = gameService.isOver(pins);
@@ -57,17 +79,21 @@ suite('gameService', function () {
             });
         }
 
-        [
-            [1, false],
-            [3, 6, true],
-            [4, 6, false],
-            [4, 6, 7, true],
-            [10, 6, false],
-            [10, 6, 8, true]
-        ].forEach(function (data) {
-                var expected = data.pop();
-                makeTest(data, expected);
-            });
+        var mocks = [
+            {pins: [1, 7], isOver: true},
+            {pins: [7], isOver: false},
+
+            {pins: [1, 9, 4, 6], isOver: true},
+            {pins: [5, 5, 10], isOver: true},
+            {pins: [1, 9, 6], isOver: false},
+
+            {pins: [10, 10], isOver: true},
+            {pins: [10, 1], isOver: false},
+            {pins: [10, 1, 2], isOver: true}
+        ];
+        mocks.forEach(function (data) {
+            makeTest(data.pins, data.isOver);
+        });
     });
 
     suite('#isStrike()', function () {
@@ -93,8 +119,15 @@ suite('gameService', function () {
             });
         }
 
-        [[3, 3], [3, 7], [3, 0], [0, 10]].forEach(function (pins) {
-            makeTest(pins, pins[1] + pins[0] === 10);
+        var mocks = [
+            {pins: [3, 3], isSpare: false},
+            {pins: [3, 7], isSpare: true},
+            {pins: [10, 10], isSpare: false},
+            {pins: [0, 10], isSpare: true},
+            {pins: [5], isSpare: false}
+        ];
+        mocks.forEach(function (data) {
+            makeTest(data.pins, data.isSpare);
         });
     });
 
@@ -114,16 +147,17 @@ suite('gameService', function () {
     suite('#countArray()', function () {
         function makeTest(array, expected) {
             var result = gameService.countArray(array);
-            test('should be ' + expected + ' for array: [' + array.join(', ') + ']', function () {
+            test('should be ' + expected + ' for [' + array.join(', ') + ']', function () {
                 assert.equal(expected, result);
             });
         }
+
         var mocks = [
-            { array: [0, 12, 2, 4], expected: 18},
-            { array: [10, 2, 2], expected: 14},
-            { array: [0, 1154], expected: 1154},
-            { array: [10, 4, 10], expected: 24},
-            { array: [10, 12, 2, 4], expected: 28}
+            {array: [0, 12, 2, 4], expected: 18},
+            {array: [10, 2, 2], expected: 14},
+            {array: [0, 1154], expected: 1154},
+            {array: [10, 4, 10], expected: 24},
+            {array: [10, 12, 2, 4], expected: 28}
         ];
 
         mocks.forEach(function (data) {

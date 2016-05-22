@@ -36,7 +36,9 @@ Object.assign(app, (function (store, component) {
                     frameElement.appendChild(this.createElement('score', 'X'));
                 } else if (isSpare) {
                     frameElement.appendChild(this.createElement('score', '/'));
-                    rest = pins.pop();
+                    pins.shift();
+                    pins.shift();
+                    rest = this.countRest(pins);
                 } else if (pins[0] === 0) {
                     frameElement.appendChild(this.createElement('score', '–'));
                     rest = this.countRest(pins);
@@ -60,9 +62,7 @@ Object.assign(app, (function (store, component) {
 
             if (player.exit) {
                 this.element.className += ' exit';
-            }
-
-            if (this.id === state.activePlayer) {
+            } else if (this.id === state.activePlayer) {
                 this.element.className += ' active';
             }
         },

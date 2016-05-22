@@ -4,8 +4,7 @@ Object.assign(app, (function () {
 
         // Returns random number from 0 to 10, tends to maximum on the first attempt
         roll: function (pins) {
-            var last = pins[pins.length - 1];
-            var max = (10 - last) || 10;
+            var max = this.getAvailablePins(pins);
             var score;
             var accuracy = max === 10 ? Math.floor(Math.random() * (4 - 1)) + 1 : 4;
 
@@ -45,8 +44,33 @@ Object.assign(app, (function () {
             return score;
         },
 
+        getAvailablePins: function (pins) {
+            var available = 10;
+
+            if (pins.length) {
+                if (this.isStrike(pins)) {
+                    available = 10 - (pins[1] ? pins[1] : 0);
+                } else if (this.isSpare(pins)) {
+                    available = 10 - (pins[2] ? pins[2] : 0);
+                } else {
+                    available = 10 - (pins[0] ? pins[0] : 0);
+                }
+            }
+
+            return available;
+        },
+
         isOver: function (pins) {
-            var max = this.isStrike(pins) || this.isSpare(pins) ? 3 : 2;
+            var max;
+
+            if (this.isStrike(pins)) {
+                max = pins[1] === 10 ? 2 : 3;
+            } else if (this.isSpare(pins)) {
+                max = pins[2] === 10 ? 3 : 4;
+            } else {
+                max = 2;
+            }
+
             return pins.length === max;
         },
 
