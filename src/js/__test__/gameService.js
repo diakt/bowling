@@ -110,4 +110,24 @@ suite('gameService', function () {
             makeTest(frame, frame === 9);
         });
     });
+
+    suite('#countArray()', function () {
+        function makeTest(array, expected) {
+            var result = gameService.countArray(array);
+            test('should be ' + expected + ' for array: [' + array.join(', ') + ']', function () {
+                assert.equal(expected, result);
+            });
+        }
+        var mocks = [
+            { array: [0, 12, 2, 4], expected: 18},
+            { array: [10, 2, 2], expected: 14},
+            { array: [0, 1154], expected: 1154},
+            { array: [10, 4, 10], expected: 24},
+            { array: [10, 12, 2, 4], expected: 28}
+        ];
+
+        mocks.forEach(function (data) {
+            makeTest(data.array, data.expected);
+        });
+    });
 });
