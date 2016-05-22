@@ -59,6 +59,7 @@ Object.assign(app, (function () {
         },
 
         isLastFrame: function (frame) {
+            // counts from 0
             return frame === 9;
         },
 

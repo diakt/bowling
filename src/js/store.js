@@ -1,7 +1,7 @@
 Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, gameService) {
 
     var initialState = {
-        frame: 0,
+        frame: -1,
 
         isLast: false,
         isOver: false,
@@ -51,7 +51,9 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
 
         updateFrame: function (state) {
             var score = state.current.score;
-            var frame =  state.players[state.activePlayer].pins.length - 1;
+
+            // player's personal frame
+            var frame = state.players[state.activePlayer].pins.length - 1;
 
             state.players[state.activePlayer].pins[frame].push(score);
             state.players[state.activePlayer].score[frame] = gameService.countScore(state.current.pins);
@@ -59,17 +61,16 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
             state.players[state.activePlayer].spares[frame] = gameService.isSpare(state.current.pins);
 
             var isCurrentOver = gameService.isOver(state.current.pins);
-            var isLastFrame = gameService.isLastFrame(frame);
+            var isLastFrame = gameService.isLastFrame(state.frame);
 
-            // manage next frame and next player
+            // manages next frame and next player
             if (isCurrentOver) {
                 state.players[state.activePlayer].exit = isLastFrame;
 
                 if (state.activePlayer === state.players.length - 1) {
                     if (isLastFrame) {
-                        state.isOver = true;
+                        state.isOver = isLastFrame;
                     } else {
-                        state.frame++;
                         state.activePlayer = 0;
                     }
                 } else {
@@ -96,6 +97,10 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
             case actionTypes.ROLL:
                 if (state.isOver) {
                     return;
+                }
+
+                if (state.activePlayer === 0 && state.current.pins.length === 0) {
+                    state.frame++;
                 }
 
                 state.current.score = gameService.roll(state.current.pins);
