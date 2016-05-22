@@ -72,6 +72,10 @@ button {
     text-align: center;
 }
 
+.active .name {
+    font-weight: bold;
+}
+
 .frame {
     display: inline-block;
     vertical-align: middle;

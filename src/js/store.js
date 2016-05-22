@@ -95,6 +95,11 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 store.update(state);
                 break;
 
+            case actionTypes.START:
+                state.isOn = true;
+                store.update(state);
+                break;
+
             case actionTypes.ROLL:
                 if (state.isOver) {
                     return;
@@ -102,9 +107,6 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
 
                 if (state.activePlayer === 0 && state.current.pins.length === 0) {
                     state.frame++;
-                    if (state.frame === 0) {
-                        state.isOn = true;
-                    }
                 }
 
                 state.current.score = action.value || gameService.roll(state.current.pins);

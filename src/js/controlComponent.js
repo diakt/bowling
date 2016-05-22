@@ -18,6 +18,10 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
                 case 'control-add-player':
                     dispatcher.dispatch(actions.addPlayer());
                     break;
+
+                case 'start':
+                    dispatcher.dispatch(actions.start());
+                    break;
             }
         },
 
@@ -41,9 +45,17 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
                     class: 'control-add-player',
                     text: 'Add player'
                 }));
+
+                if (state.players.length) {
+                    this.element.appendChild(this.createElement({
+                        tag: 'button',
+                        class: 'start',
+                        text: 'Start!'
+                    }));
+                }
             }
 
-            if (state.players.length && !state.isOver) {
+            if (state.players.length && !state.isOver && state.isOn) {
                 this.element.appendChild(this.createElement({
                     tag: 'button',
                     'class': 'roll-random',

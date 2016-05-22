@@ -61,6 +61,10 @@ Object.assign(app, (function (store, component) {
             if (player.exit) {
                 this.element.className += ' exit';
             }
+
+            if (this.id === state.activePlayer) {
+                this.element.className += ' active';
+            }
         },
 
         init: function (options) {
