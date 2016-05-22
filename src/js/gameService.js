@@ -42,6 +42,20 @@ Object.assign(app, (function () {
             return activePlayer;
         },
 
+        countScore: function (pins) {
+            var score;
+
+            if (this.isStrike(pins)) {
+                score = this.countArray(pins) + this.countArray(pins.slice(1));
+            } else if (this.isSpare(pins)) {
+                score = this.countArray(pins) + pins[2];
+            } else {
+                score = this.countArray(pins);
+            }
+
+            return score;
+        },
+
         isOver: function (pins) {
             var max = this.isStrike(pins) || this.isSpare(pins) ? 3 : 2;
             return pins.length === max;
@@ -57,6 +71,13 @@ Object.assign(app, (function () {
 
         isLastFrame: function (frame) {
             return frame === 10;
+        },
+
+        countArray: function (array) {
+            return array.reduce(function (sum, num) {
+                sum += num;
+                return sum;
+            }, 0);
         }
     };
 

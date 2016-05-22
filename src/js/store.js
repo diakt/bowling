@@ -37,7 +37,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
                 pins: [[]],
                 strikes: [],
                 spares: [],
-                score: 0,
+                score: [],
                 exit: false
             });
 
@@ -54,8 +54,7 @@ Object.assign(app, (function (eventEmitter, dispatcher, actionTypes, actions, ga
             var frame =  state.players[state.activePlayer].pins.length - 1;
 
             state.players[state.activePlayer].pins[frame].push(score);
-            state.players[state.activePlayer].score += score;
-
+            state.players[state.activePlayer].score[frame] = gameService.countScore(state.current.pins);
             state.players[state.activePlayer].strikes[frame] = gameService.isStrike(state.current.pins);
             state.players[state.activePlayer].spares[frame] = gameService.isSpare(state.current.pins);
 

@@ -3,11 +3,20 @@ html, body {
     width: 100%;
     font-size: 16px;
     text-align: center;
+    font-family: sans-serif;
 }
 
 * {
     padding: 0;
     margin: 0;
+}
+
+button {
+    line-height: 30px;
+    padding: 0 12px;
+    font-size: 16px;
+    display: block;
+    margin: 10px;
 }
 
 .layout {
@@ -16,42 +25,77 @@ html, body {
     text-align: left;
 }
 
-.table {
-    position: relative;
-    padding-right: 50px;
-}
-
-.score {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-family: monospace;
-    padding: 2px;
+.scoreboard {
+    min-height: 60px;
 }
 
 .players {
     margin: 0 0 20px;
 }
 
-.pins,
+.frames,
 .players {
     display: inline-block;
-    min-height: 20px;
+    min-height: 50px;
+    vertical-align: middle;
 }
 
 .player {
     position: relative;
 }
+
+.welcome {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
 .name {
     display: inline-block;
+    vertical-align: middle;
     width: 80px;
-}
-
-.pin {
-    display: inline-block;
-    width: 100px;
+    line-height: 50px;
+    padding: 0 5px;
     text-align: center;
-    font-family: monospace;
 }
-.pin:nth-child(even) {background: #dedede}
 
+.frame {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    text-align: right;
+    font-size: 14px;
+    border: 1px solid;
+    margin-right: -1px;
+}
+
+.frame:nth-child(even) {
+    background: #efefef;
+}
+
+.score {
+    display: inline-block;
+    margin: -1px -1px 0 0;
+    border: 1px solid transparent;
+    padding: 3px;
+    float: right;
+    width: 16px;
+    text-align: center;
+}
+
+.score:first-child {
+    border-color: #000;
+}
+
+.frame-score {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 16px;
+    width: 20px;
+}

@@ -8,6 +8,12 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
 
             this.removeChildNodes();
 
+            this.element.appendChild(this.createElement({
+                tag: 'button',
+                id: 'control-add-player',
+                text: 'Add player'
+            }));
+
             if (state.players.length) {
                 this.element.appendChild(this.createElement({
                     tag: 'button',
@@ -16,12 +22,6 @@ Object.assign(app, (function (actions, dispatcher, store, component) {
                     text: 'ROLL!'
                 }));
             }
-
-            this.element.appendChild(this.createElement({
-                tag: 'button',
-                id: 'control-add-player',
-                text: 'Add player'
-            }));
         },
 
         routeEvents: function (e) {

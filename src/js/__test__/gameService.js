@@ -23,8 +23,8 @@ suite('gameService', function () {
 
             test('should be ' + expected + ' if ' +
                 'pins: ' + pins.join(', ') + '; ' +
-                'activePlayer: ' +  activePlayer + '; ' +
-                'players length: ' +  playersLen, function () {
+                'activePlayer: ' + activePlayer + '; ' +
+                'players length: ' + playersLen, function () {
                 assert.strictEqual(result, expected);
             });
         }
@@ -64,6 +64,38 @@ suite('gameService', function () {
 
         mocks.forEach(function (mock) {
             makeTest(mock.pins, mock.activePlayer, mock.playersLen, mock.expected);
+        });
+    });
+
+    suite('#countScore()', function () {
+        function makeTest(pins, expected) {
+            var result = gameService.countScore(pins);
+            test('should be ' + expected + ', if pins are ' + pins.join(', '), function () {
+                assert.equal(result, expected);
+            });
+        }
+
+        var mocks = [
+            {
+                pins: [0, 9],
+                score: 9
+            },
+            {
+                pins: [10, 9, 1],
+                score: (10 + 9 + 1) + 9 + 1
+            },
+            {
+                pins: [1, 9, 3, 2],
+                score: (1 + 9 + 3) + (3 + 2)
+            },
+            {
+                pins: [0, 0],
+                score: 0
+            }
+        ];
+
+        mocks.forEach(function (data) {
+            makeTest(data.pins, data.score);
         });
     });
 
