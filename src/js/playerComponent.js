@@ -92,7 +92,6 @@ Object.assign(app, (function (store, component) {
         init: function (options) {
             this.id = options.id;
             this.element = options.element;
-            store.onChange(this.render.bind(this));
             this.render();
             return this;
         }
