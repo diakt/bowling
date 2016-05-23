@@ -3,6 +3,19 @@
 
 The brief is available at [wiki](https://github.com/diakt/bowling/wiki/Brief).
 
+###Build
+
+System requirements: `nodejs@4`, `npm@3`
+
+Setup and run: `npm i`
+
+Tests and Webpack dev server run automatically after install over the `postintall` script and app starts at the [http://localhost:8080/](http://localhost:8080/).
+
+Development server: `npm run dev`
+
+
+###Game 
+
 __Features:__
 
 - maximum 10 frames per game, current frame is printed on a screen
@@ -14,17 +27,16 @@ __Features:__
 
 __Architecture:__
 
-Basically, it represents the state machine pattern implemented in terms of Flux.
+The application represents the state machine pattern implemented in terms of Flux.
 
-It provides single State object and just three Actions – `ADD_PLAYER`, `START` and `ROLL`. There is also the Store module, which handles Actions and operates with data placing it to the State. The State keeps everything regarding current game moment: 
+It provides single State object and just three Actions – `ADD_PLAYER`, `START` and `ROLL`. There is also the Store module, which handles Actions, operates with data in the State. The State keeps everything regarding current game moment:
 
 - current frame's number
-- current turn: knocked pins, available pins, total score
+- stats of the current turn: knocked pins, available pins, total score
 - the id of active player
-- a list of players
+- a list of players with their own inner stats
 
 
-The way how the scoring system counts pins and knocks down new ones is ruled by the gameService module.
-This module is covered with unit tests.
+The way how the scoring system counts pins and knocks down new ones is ruled by the Game module. This module is covered with unit tests as the most crucial in case of application business logic.
 
-The View is implemented in a React way. It is divided into isolated components, which render on every update of the State.
+Views are implemented in a way similar to React components. Each component renders on every update of the State.
