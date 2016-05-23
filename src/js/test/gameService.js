@@ -1,6 +1,8 @@
+var assert = require('chai').assert;
+var gameService = require(__dirname + '/../gameService.js');
+
+
 suite('gameService', function () {
-    var assert = chai.assert;
-    var gameService = app.gameService;
 
     suite('#roll()', function () {
         function makeTest(pins) {

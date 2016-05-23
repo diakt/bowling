@@ -1,6 +1,6 @@
-Object.assign(app, (function () {
+var gameService = (function () {
 
-    var gameService = {
+    return {
 
         /**
          * Returns random number from 0 to 10, tends to maximum on the first roll
@@ -147,9 +147,6 @@ Object.assign(app, (function () {
             }, 0);
         }
     };
+})();
 
-    return {
-        gameService: gameService
-    }
-})());
-
+module.exports = gameService;

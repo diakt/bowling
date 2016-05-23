@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/diakt/bowling#readme",
   "scripts": {
-    "dev": "webpack-dev-server --progress --profile --colors"
+    "dev": "webpack-dev-server --progress --profile --colors --config webpack.config.js",
+    "test": "./node_modules/mocha/bin/mocha --ui tdd ./src/js/test/gameService.js"
   },
   "devDependencies": {
     "babel-core": "6.7.7",
@@ -23,7 +24,8 @@
     "css-loader": "0.23.1",
     "file-loader": "0.8.5",
     "html-loader": "^0.4.3",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.1",
+    "mocha-loader": "^0.7.1",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.0",
