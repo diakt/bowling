@@ -12,24 +12,26 @@ export default class Layout extends AbstractComponent {
     }
 
     render() {
+        var state = appStore.state;
+
         this.removeChildNodes();
 
-        var scoreboard = this.createElement({
-            id: 'players-list',
-            'class': 'scoreboard'
-        });
+        if (!state.players.length) {
+            this.element.appendChild(this.createElement('welcome', 'Please, add new Player'));
+        } else {
+            this.element.appendChild(this.createElement({
+                id: 'players-list',
+                'class': 'scoreboard'
+            }));
+            new PlayersList({
+                element: document.querySelector('#players-list')
+            });
+        }
 
-        scoreboard.appendChild(this.createElement('welcome', 'Please, add new Player'));
-
-        this.element.appendChild(scoreboard);
         this.element.appendChild(this.createElement({
             'class': 'controls',
             id: 'controls'
         }));
-
-        new PlayersList({
-            element: document.querySelector('#players-list')
-        });
 
         new Control({
             element: document.querySelector('#controls')

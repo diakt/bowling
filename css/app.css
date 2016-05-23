@@ -12,15 +12,34 @@ html, body {
 }
 
 button {
-    line-height: 30px;
-    padding: 0 12px;
+    line-height: 40px;
     font-size: 16px;
     display: block;
     margin: 10px;
+    width: 40px;
+    border-radius: 100%;
+    border: 1px solid;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+}
+
+button:active {
+    background: rgba(0,0,0,.1);
+    outline: none;
 }
 
 .buttons-container button {
     display: inline;
+}
+
+.control-add-player,
+.start {
+    width: 200px;
+    border-radius: 3px;
+    display: inline;
+    margin: 0 10px 0 0;
+
 }
 .layout {
     padding: 10% 50px;
@@ -35,8 +54,7 @@ button {
 
 .is-over,
 .frame-number {
-    font-style: italic;
-    padding: 10px;
+    padding: 0 0 20px 90px
 }
 
 .players {
@@ -52,6 +70,7 @@ button {
 
 .player {
     position: relative;
+    margin-bottom: -1px;
 }
 
 .player.exit .name:after,
@@ -72,7 +91,7 @@ button {
 .welcome {
     display: inline-block;
     vertical-align: middle;
-    line-height: 50px;
+    line-height: 60px;
 }
 
 .name {

@@ -9,18 +9,18 @@ export default class Control extends AbstractComponent {
      * Sets the root element and subscribes on updates from Store
      * @param {Object} options
      */
-    constructor (options) {
+    constructor(options) {
         super();
         this.element = options.element;
         this.render();
         this.element.addEventListener('click', this.routeEvents.bind(this));
     }
-    
+
     /**
      * Handles clicks on child elements
      * @param {Object} e - Native DOM Click
      */
-    routeEvents (e) {
+    routeEvents(e) {
         switch (e.target.className) {
             case 'roll-random':
                 dispatcher.dispatch(roll());
@@ -47,8 +47,14 @@ export default class Control extends AbstractComponent {
      *
      * @param {Number} available - available pins in current roll
      */
-    addButtons (available) {
+    addButtons(available) {
         var buttonContainer = this.createElement('buttons-container');
+
+        buttonContainer.appendChild(this.createElement({
+            tag: 'button',
+            'class': 'roll-random',
+            text: '?'
+        }));
 
         for (var i = 0; i < available; i++) {
             buttonContainer.appendChild(this.createElement({
@@ -65,7 +71,7 @@ export default class Control extends AbstractComponent {
     /**
      * Renders children elements
      */
-    render () {
+    render() {
         var state = appStore.state;
 
         this.removeChildNodes();
@@ -87,12 +93,6 @@ export default class Control extends AbstractComponent {
         }
 
         if (state.players.length && !state.isOver && state.isOn) {
-            this.element.appendChild(this.createElement({
-                tag: 'button',
-                'class': 'roll-random',
-                text: 'Random ROLL!'
-            }));
-
             this.addButtons(state.current.available);
         }
     }
