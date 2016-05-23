@@ -1,7 +1,8 @@
-import eventEmitter from '../utils/EventEmitter'
+import EventEmitter from '../utils/EventEmitter'
 
-export default class Dispatcher extends eventEmitter {
-    constructor (token) {
+export default class Dispatcher extends EventEmitter {
+    constructor(token) {
+        super();
         this.token = token;
     }
 
@@ -10,6 +11,7 @@ export default class Dispatcher extends eventEmitter {
     }
 
     register(action) {
+
         this.on(`${this.token}`, action);
         return this.token;
     }

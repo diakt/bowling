@@ -1,4 +1,4 @@
-import store from '../store/Store'
+import appStore from '../store/appStore'
 import AbstractComponent from './Abstract'
 
 export default class Player extends AbstractComponent {
@@ -9,21 +9,19 @@ export default class Player extends AbstractComponent {
      * @param {Number} options.id - player id
      */
     constructor (options) {
+        super();
         this.id = options.id;
         this.element = options.element;
         this.render();
-        return this;
     }
-    
+
     /**
      * Renders children elements
      * prints score like in Ten-pin bowling scoreboard
      * @see https://en.wikipedia.org/wiki/Ten-pin_bowling
-     *
-     * @param {Object} [state]
      */
-    render (state) {
-        state || (state = store.state);
+    render () {
+        var state = appStore.state;
 
         // Player name
         var nameElement = this.createElement('name', 'Player ' + (this.id + 1) + ': ');
@@ -35,7 +33,7 @@ export default class Player extends AbstractComponent {
         this.removeChildNodes();
 
         // Iterates over the pins in order to render every frame
-        player.pins.forEach(function (pins, i) {
+        player.pins.forEach((pins, i) => {
             if (pins.length === 0) {
                 return;
             }
@@ -73,7 +71,7 @@ export default class Player extends AbstractComponent {
             frameElement.appendChild(this.createElement('frame-score', previousScore));
             framesElement.appendChild(frameElement);
 
-        }.bind(this));
+        });
 
         this.element.appendChild(nameElement);
         this.element.appendChild(framesElement);

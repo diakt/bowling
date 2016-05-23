@@ -1,7 +1,8 @@
-import EventEmitter from '../utils/eventEmitter'
+import EventEmitter from '../utils/EventEmitter'
 export default class Store extends EventEmitter {
     
     constructor (state) {
+        super();
         this.state = state;
     }
 

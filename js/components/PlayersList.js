@@ -1,16 +1,13 @@
-import store from '../store/Store'
+import appStore from '../store/appStore'
 import Player from './Player'
 import AbstractComponent from './Abstract'
 
 export default class PlayersList extends AbstractComponent {
-    /**
-     * Sets the root element and subscribes on updates from Store
-     * @param {Object} options
-     * @param {HTMLElement} options.element
-     */
-    constructor (options) {
+
+    constructor(options) {
+        super();
         this.element = options.element;
-        store.onChange(this.render.bind(this));
+        this.render();
     }
 
     /**
@@ -18,7 +15,7 @@ export default class PlayersList extends AbstractComponent {
      * @param {Object} [playerState]
      * @param {Number} i - player id
      */
-    addPlayer (playerState, i) {
+    addPlayer(playerState, i) {
         var player = this.createElement('player');
         this.element.appendChild(player);
 
@@ -30,12 +27,12 @@ export default class PlayersList extends AbstractComponent {
 
     /**
      * Renders children elements
-     * @param {Object} [state]
      */
-    render (state) {
-        state || (state = store.state);
+    render() {
+        const state = appStore.state;
 
         this.removeChildNodes();
+
         if (state.isOver) {
             this.element.appendChild(this.createElement({
                 'class': 'is-over',

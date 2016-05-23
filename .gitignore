@@ -14,3 +14,7 @@ node_modules
 # etc
 *.log
 *.tmp
+
+# generated
+js/bundle.js
+js/bundle.js.map

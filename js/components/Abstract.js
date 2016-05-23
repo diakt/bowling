@@ -1,5 +1,6 @@
 export default class AbstractComponent {
 
+
     countArray (pins) {
         return pins.reduce(function (acc, score) {
             acc += score;

@@ -4,11 +4,11 @@ var path = require('path');
 module.exports = {
     entry: [
         'webpack-dev-server/client?http://0.0.0.0:8080',
-        './src/js/index.js'
+        './js/app.js'
     ],
     devtool: 'source-map',
     output: {
-        path: path.join(__dirname, 'src'),
+        path: path.join(__dirname, 'js'),
         filename: 'bundle.js'
     },
     resolve: {
@@ -32,11 +32,14 @@ module.exports = {
         ]
     },
     devServer: {
-        contentBase: "./src",
+        contentBase: "./",
         noInfo: true,
-        inline: true
+        inline: true,
+        progress: true,
+        colors: true
     },
     plugins: [
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 };

@@ -1,9 +1,7 @@
 import Store from './Store'
 import actionTypes from '../consts/actionTypes'
 import Game from '../utils/Game'
-import Dispatcher from '../dispatcher/Dispatcher'
-
-const appDispatcher = new Dispatcher('action-token');
+import appDispatcher from '../dispatcher/appDispatcher'
 
 const initialState = {
     frame: 0,

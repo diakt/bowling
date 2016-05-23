@@ -30,6 +30,7 @@ button {
 
 .scoreboard {
     min-height: 60px;
+    width: 690px;
 }
 
 .is-over,

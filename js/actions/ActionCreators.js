@@ -1,28 +1,22 @@
-Object.assign(app, (function (actionTypes) {
-    var actions = {
+import actionTypes from '../consts/actionTypes'
 
-        start: function () {
-            return {
-                type: actionTypes.START
-            }
-        },
-
-        roll: function (value) {
-            return {
-                type: actionTypes.ROLL,
-                value: value
-            }
-        },
-
-        addPlayer: function () {
-            return {
-                type: actionTypes.ADD_PLAYER
-            }
-        }
-    };
-
+export function start() {
     return {
-        actions: actions
-    };
+        type: actionTypes.START
+    }
+}
 
-})(app.actionTypes));
+export function roll(value) {
+    return {
+        type: actionTypes.ROLL,
+        value: value
+    }
+}
+
+
+export function addPlayer() {
+    return {
+        type: actionTypes.ADD_PLAYER
+    }
+}
+

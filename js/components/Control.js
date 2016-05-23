@@ -1,6 +1,6 @@
-import actions from '../actions/ActionCreators'
-import dispatcher from '../dispatcher/AppDispatcher'
-import store from '../store/Store'
+import {addPlayer, roll, start } from '../actions/ActionCreators'
+import dispatcher from '../dispatcher/appDispatcher'
+import appStore from '../store/appStore'
 import AbstractComponent from './Abstract'
 
 export default class Control extends AbstractComponent {
@@ -8,13 +8,12 @@ export default class Control extends AbstractComponent {
     /**
      * Sets the root element and subscribes on updates from Store
      * @param {Object} options
-     * @param {HTMLElement} options.element
      */
     constructor (options) {
+        super();
         this.element = options.element;
-        this.element.addEventListener('click', this.routeEvents.bind(this));
-        store.onChange(this.render.bind(this));
         this.render();
+        this.element.addEventListener('click', this.routeEvents.bind(this));
     }
     
     /**
@@ -24,20 +23,20 @@ export default class Control extends AbstractComponent {
     routeEvents (e) {
         switch (e.target.className) {
             case 'roll-random':
-                dispatcher.dispatch(actions.roll());
+                dispatcher.dispatch(roll());
                 break;
 
             case 'roll-value':
                 var value = Number(e.target.getAttribute('data-value'));
-                dispatcher.dispatch(actions.roll(value));
+                dispatcher.dispatch(roll(value));
                 break;
 
             case 'control-add-player':
-                dispatcher.dispatch(actions.addPlayer());
+                dispatcher.dispatch(addPlayer());
                 break;
 
             case 'start':
-                dispatcher.dispatch(actions.start());
+                dispatcher.dispatch(start());
                 break;
         }
     }
@@ -65,10 +64,9 @@ export default class Control extends AbstractComponent {
 
     /**
      * Renders children elements
-     * @param {Object} state
      */
-    render (state) {
-        state || (state = store.state);
+    render () {
+        var state = appStore.state;
 
         this.removeChildNodes();
 
