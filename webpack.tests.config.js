@@ -1,18 +1,19 @@
+var nodeExternals = require('webpack-node-externals');
 var hostname = 'localhost';
 var port = '8080';
 
 module.exports = {
-    entry: 'mocha!./src/js/__test__/gameFunctions.js',
-    output: {
-        filename: 'test.build.js',
-        path: 'tests/',
-        publicPath: 'http://' + hostname + ':' + port + '/tests'
+    target: 'node', // in order to ignore built-in modules like path, fs, etc.
+    externals: [nodeExternals()],
+    resolve: {
+        extensions: ['', '.js', '.css']
     },
     module: {
         loaders: [
             {
-                test: /\.js$/,
-                loaders: ['babel-loader']
+                test: /\.js?$/,
+                exclude: /(node_modules|bower_components)/,
+                loaders: ['babel']
             }
         ]
     },

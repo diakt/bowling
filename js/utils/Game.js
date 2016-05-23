@@ -1,12 +1,12 @@
-export default class GameFunctions {
+export default class Game {
 
     /**
      * Returns random number from 0 to 10, tends to maximum on the first roll
      * @param {Number[]} pins
      * @returns {Number}
      */
-    static roll (pins) {
-        var max = this.getAvailablePins(pins);
+    static roll(pins) {
+        var max = Game.getAvailablePins(pins);
         var score;
         var accuracy = max === 10 ? Math.floor(Math.random() * (4 - 1)) + 1 : 4;
 
@@ -37,15 +37,15 @@ export default class GameFunctions {
      * @param {Number[]} pins
      * @returns {Number}
      */
-    static countScore (pins) {
+    static countScore(pins) {
         var score;
 
         if (this.isStrike(pins)) {
-            score = this.countArray(pins) + this.countArray(pins.slice(1));
+            score = Game.countArray(pins) + Game.countArray(pins.slice(1));
         } else if (this.isSpare(pins)) {
-            score = this.countArray(pins) + pins[2];
+            score = Game.countArray(pins) + pins[2];
         } else {
-            score = this.countArray(pins);
+            score = Game.countArray(pins);
         }
 
         return score;
@@ -56,13 +56,13 @@ export default class GameFunctions {
      * @param {Number[]} pins
      * @returns {Number}
      */
-    static getAvailablePins (pins) {
+    static getAvailablePins(pins) {
         var available = 10;
 
         if (pins.length) {
-            if (this.isStrike(pins)) {
+            if (Game.isStrike(pins)) {
                 available = 10 - (pins[1] ? pins[1] : 0);
-            } else if (this.isSpare(pins)) {
+            } else if (Game.isSpare(pins)) {
                 available = 10 - (pins[2] ? pins[2] : 0);
             } else {
                 available = 10 - (pins[0] ? pins[0] : 0);
@@ -77,11 +77,11 @@ export default class GameFunctions {
      * @param {Object[]} players
      * @returns {Number}
      */
-    static getMaxScore (players) {
+    static getMaxScore(players) {
         var score = [];
-        players.forEach(function (player) {
-            score.push(this.countArray(player.score));
-        }.bind(this));
+        players.forEach((player) => {
+            score.push(Game.countArray(player.score));
+        });
 
         return Math.max.apply(Math, score);
     }
@@ -91,12 +91,12 @@ export default class GameFunctions {
      * @param {Number[]} pins
      * @returns {Boolean}
      */
-    static isOver (pins) {
+    static isOver(pins) {
         var max;
 
-        if (this.isStrike(pins)) {
+        if (Game.isStrike(pins)) {
             max = pins[1] === 10 ? 2 : 3;
-        } else if (this.isSpare(pins)) {
+        } else if (Game.isSpare(pins)) {
             max = pins[2] === 10 ? 3 : 4;
         } else {
             max = 2;
@@ -110,7 +110,7 @@ export default class GameFunctions {
      * @param {Number[]} pins
      * @returns {Boolean}
      */
-    static isStrike (pins) {
+    static isStrike(pins) {
         return pins[0] === 10;
     }
 
@@ -119,7 +119,7 @@ export default class GameFunctions {
      * @param {Number[]} pins
      * @returns {Boolean}
      */
-    static isSpare (pins) {
+    static isSpare(pins) {
         return pins[0] + pins[1] >= 10 && pins[0] !== 10;
     }
 
@@ -128,7 +128,7 @@ export default class GameFunctions {
      * @param {Number} frame
      * @returns {Boolean}
      */
-    static isLastFrame (frame) {
+    static isLastFrame(frame) {
         // counts from 0
         return frame === 9;
     }
@@ -138,7 +138,7 @@ export default class GameFunctions {
      * @param {Number[]} array
      * @returns {Number}
      */
-    static countArray (array) {
+    static countArray(array) {
         return array.reduce(function (sum, num) {
             sum += num;
             return sum;

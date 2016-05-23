@@ -6,6 +6,7 @@ module.exports = {
         'webpack-dev-server/client?http://0.0.0.0:8080',
         './js/app.js'
     ],
+    cache: false,
     devtool: 'source-map',
     output: {
         path: path.join(__dirname, 'js'),
@@ -17,17 +18,9 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
-            {
                 test: /\.js?$/,
                 exclude: /(node_modules|bower_components)/,
                 loaders: ['babel']
-            },
-            {
-                test: /\.html$/,
-                loader: "html"
             }
         ]
     },

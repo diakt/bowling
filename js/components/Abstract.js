@@ -23,7 +23,9 @@ export default class AbstractComponent {
     /**
      * Shorthand for native DOM methods
      * @param {Object|String} attrs
-     * @param {String} text
+     * @param {String} [attrs.text]
+     * @param {String} [attrs.tag]
+     * @param {String} [text]
      */
     createElement (attrs, text) {
         var element = document.createElement((attrs && attrs.tag) || 'div');

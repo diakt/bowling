@@ -1,5 +1,8 @@
 import {assert} from 'chai'
 import Game from '../Game'
+import mocha from 'mocha'
+
+const {suite, test} = mocha;
 
 suite('Game', () => {
 
@@ -28,19 +31,19 @@ suite('Game', () => {
         var mocks = [
             {
                 pins: [0, 9],
-                score: 9
+                expected: 9
             },
             {
                 pins: [10, 9, 1],
-                score: (10 + 9 + 1) + 9 + 1
+                expected: (10 + 9 + 1) + 9 + 1
             },
             {
                 pins: [1, 9, 3, 2],
-                score: (1 + 9 + 3) + (3 + 2)
+                expected: (1 + 9 + 3) + (3 + 2)
             },
             {
                 pins: [0, 0],
-                score: 0
+                expected: 0
             }
         ];
 
@@ -57,13 +60,13 @@ suite('Game', () => {
         }
 
         var mocks = [
-            {pins: [1], available: 9},
-            {pins: [1, 9], available: 10},
-            {pins: [10, 9], available: 1},
-            {pins: [10, 10], available: 0},
-            {pins: [0, 10], available: 10},
-            {pins: [5, 5, 5], available: 5},
-            {pins: [5, 5, 0], available: 10}
+            {pins: [1], expected: 9},
+            {pins: [1, 9], expected: 10},
+            {pins: [10, 9], expected: 1},
+            {pins: [10, 10], expected: 0},
+            {pins: [0, 10], expected: 10},
+            {pins: [5, 5, 5], expected: 5},
+            {pins: [5, 5, 0], expected: 10}
         ];
         mocks.forEach(makeTest);
     });
@@ -85,9 +88,9 @@ suite('Game', () => {
         }
 
         var mocks = [
-            {players: [{score: [0, 1, 3]}, {score: [4, 5, 6]}], maxScore: 15},
-            {players: [{score: [10, 11, 3]}], maxScore: 24},
-            {players: [{score: [1, 3]}, {score: [4, 6]}, {score: [14, 6]}], maxScore: 20},
+            {players: [{score: [0, 1, 3]}, {score: [4, 5, 6]}], expected: 15},
+            {players: [{score: [10, 11, 3]}], expected: 24},
+            {players: [{score: [1, 3]}, {score: [4, 6]}, {score: [14, 6]}], expected: 20}
         ];
         mocks.forEach(makeTest);
     });
@@ -103,22 +106,23 @@ suite('Game', () => {
         }
 
         var mocks = [
-            {pins: [1, 7], isOver: true},
-            {pins: [7], isOver: false},
+            {pins: [1, 7], expected: true},
+            {pins: [7], expected: false},
 
-            {pins: [1, 9, 4, 6], isOver: true},
-            {pins: [5, 5, 10], isOver: true},
-            {pins: [1, 9, 6], isOver: false},
+            {pins: [1, 9, 4, 6], expected: true},
+            {pins: [5, 5, 10], expected: true},
+            {pins: [1, 9, 6], expected: false},
 
-            {pins: [10, 10], isOver: true},
-            {pins: [10, 1], isOver: false},
-            {pins: [10, 1, 2], isOver: true}
+            {pins: [10, 10], expected: true},
+            {pins: [10, 1], expected: false},
+            {pins: [10, 1, 2], expected: true}
         ];
         mocks.forEach(makeTest);
     });
 
     suite('#isStrike()', () => {
-        function makeTest(pins, expected) {
+        function makeTest(data) {
+            var {pins, expected} = data;
             var result = Game.isStrike(pins);
             test('should be ' + expected + ' if the player knocks down all 10 pins on the first roll, ' +
                 'where the rolls are ' + pins, () => {
@@ -132,8 +136,8 @@ suite('Game', () => {
             {pins: [3], expected: false},
             {pins: [3, 4], expected: false},
             {pins: [0, 10], expected: false},
-            {pins: [0, 10, 10], expected: false},
-        ]
+            {pins: [0, 10, 10], expected: false}
+        ];
         mocks.forEach(makeTest);
     });
 
@@ -148,11 +152,11 @@ suite('Game', () => {
         }
 
         var mocks = [
-            {pins: [3, 3], isSpare: false},
-            {pins: [3, 7], isSpare: true},
-            {pins: [10, 10], isSpare: false},
-            {pins: [0, 10], isSpare: true},
-            {pins: [5], isSpare: false}
+            {pins: [3, 3], expected: false},
+            {pins: [3, 7], expected: true},
+            {pins: [10, 10], expected: false},
+            {pins: [0, 10], expected: true},
+            {pins: [5], expected: false}
         ];
         mocks.forEach(makeTest);
     });
