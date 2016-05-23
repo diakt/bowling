@@ -40,6 +40,6 @@ __Architecture:__
 
 It provides one state object (like the Redux state) and just three actions – add new player, start the game and roll.
 Also there is the Store module, which handles actions and operates with data.
-The way how it exactly counts points, rules players' turns and sets data into the state is ruled by the gameService module.
-The gameService module implements the rules of bowling scoring system so it is covered with unit tests.
+The way how it exactly counts points, rules players' turns and sets data into the state is ruled by the gameFunctions module.
+The gameFunctions module implements the rules of bowling scoring system so it is covered with unit tests.
 The View is implemented in a React way. It is divided into isolated components, which render on every update of the State.

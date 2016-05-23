@@ -1,12 +1,12 @@
 var assert = require('chai').assert;
-var gameService = require(__dirname + '/../gameService.js');
+var gameFunctions = require(__dirname + '/../gameFunctions.js');
 
 
-suite('gameService', function () {
+suite('gameFunctions', function () {
 
     suite('#roll()', function () {
         function makeTest(pins) {
-            var result = gameService.roll(pins);
+            var result = gameFunctions.roll(pins);
             pins.push(result);
 
             test('should be at most 10 summarizing ' + pins.join(', '), function () {
@@ -21,7 +21,7 @@ suite('gameService', function () {
 
     suite('#countScore()', function () {
         function makeTest(pins, expected) {
-            var result = gameService.countScore(pins);
+            var result = gameFunctions.countScore(pins);
             test('should be ' + expected + ', if pins are ' + pins.join(', '), function () {
                 assert.equal(result, expected);
             });
@@ -53,7 +53,7 @@ suite('gameService', function () {
 
     suite('#getAvailablePins()', function () {
         function makeTest(pins, expected) {
-            var result = gameService.getAvailablePins(pins);
+            var result = gameFunctions.getAvailablePins(pins);
             test('should be ' + expected + ', if pins are ' + pins.join(', '), function () {
                 assert.equal(result, expected);
             });
@@ -81,7 +81,7 @@ suite('gameService', function () {
         }
 
         function makeTest(players, expected) {
-            var result = gameService.getMaxScore(players);
+            var result = gameFunctions.getMaxScore(players);
             var score = players.reduce(getScore, []);
             test('should be ' + expected + ', if players are [' + score.join('], [ ') + ']', function () {
                 assert.equal(result, expected);
@@ -100,7 +100,7 @@ suite('gameService', function () {
 
     suite('#isOver()', function () {
         function makeTest(pins, expected) {
-            var result = gameService.isOver(pins);
+            var result = gameFunctions.isOver(pins);
             test('should be ' + expected + ', if pins are ' + pins.join(', '), function () {
                 assert.equal(result, expected);
             });
@@ -125,7 +125,7 @@ suite('gameService', function () {
 
     suite('#isStrike()', function () {
         function makeTest(pins, expected) {
-            var result = gameService.isStrike(pins);
+            var result = gameFunctions.isStrike(pins);
             test('should be ' + expected + ' if the player knocks down all 10 pins on the first roll, ' +
                 'where the rolls are ' + pins, function () {
                 assert.equal(expected, result);
@@ -139,7 +139,7 @@ suite('gameService', function () {
 
     suite('#isSpare()', function () {
         function makeTest(pins, expected) {
-            var result = gameService.isSpare(pins);
+            var result = gameFunctions.isSpare(pins);
             test('should be ' + expected + ' if the player knocks down all 10 pins in two rolls, ' +
                 'where the rolls are ' + pins, function () {
                 assert.equal(expected, result);
@@ -160,7 +160,7 @@ suite('gameService', function () {
 
     suite('#isLastFrame()', function () {
         function makeTest(frame, expected) {
-            var result = gameService.isLastFrame(frame);
+            var result = gameFunctions.isLastFrame(frame);
             test('should be ' + expected + ' for frame number ' + frame, function () {
                 assert.equal(expected, result);
             });
@@ -173,7 +173,7 @@ suite('gameService', function () {
 
     suite('#countArray()', function () {
         function makeTest(array, expected) {
-            var result = gameService.countArray(array);
+            var result = gameFunctions.countArray(array);
             test('should be ' + expected + ' for [' + array.join(', ') + ']', function () {
                 assert.equal(expected, result);
             });

@@ -2,7 +2,7 @@ var hostname = 'localhost';
 var port = '8080';
 
 module.exports = {
-    entry: 'mocha!./src/js/__test__/gameService.js',
+    entry: 'mocha!./src/js/__test__/gameFunctions.js',
     output: {
         filename: 'test.build.js',
         path: 'tests/',

@@ -1,3 +1,6 @@
+import layout from 'components/Layout'
+
+
 Object.assign(app, (function (playersListComponent, controlComponent) {
 
     Object.create(playersListComponent).init({

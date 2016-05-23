@@ -14,7 +14,7 @@
   "homepage": "https://github.com/diakt/bowling#readme",
   "scripts": {
     "dev": "webpack-dev-server --progress --profile --colors --config webpack.config.js",
-    "test": "./node_modules/mocha/bin/mocha --ui tdd ./src/js/test/gameService.js"
+    "test": "./node_modules/mocha/bin/mocha --ui tdd ./src/js/test/gameFunctions.js"
   },
   "devDependencies": {
     "babel-core": "6.7.7",
