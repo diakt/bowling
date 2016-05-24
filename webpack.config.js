@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = {
     entry: [
-        'webpack-dev-server/client?http://0.0.0.0:8080',
+        'webpack-dev-server/?http://0.0.0.0:8080',
         './js/app.js'
     ],
     cache: false,
@@ -15,6 +15,7 @@ module.exports = {
     resolve: {
         extensions: ['', '.js', '.css']
     },
+    modulesDirectories: ["node_modules", "bower_components"],
     module: {
         loaders: [
             {
