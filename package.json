@@ -15,7 +15,9 @@
   "scripts": {
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --config webpack.config.js",
     "test": "./node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.tests.config.js \"js/**/*.spec.js\"",
-    "postinstall": "npm run test && npm run dev"
+    "postinstall": "npm run test && npm start",
+    "build": "node ./node_modules/webpack/bin/webpack.js",
+    "start": "npm run build && npm run test && npm run dev"
   },
   "devDependencies": {
     "babel-core": "6.7.7",
