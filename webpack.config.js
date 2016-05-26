@@ -1,36 +1,38 @@
 var webpack = require('webpack');
 var path = require('path');
-var nodeExternals = require('webpack-node-externals');
+var isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    entry: [
-        'webpack-dev-server/?http://0.0.0.0:8080',
+    entry: isProd ? './js/app.js' : [
+        'webpack-dev-server/client?http://0.0.0.0:8080',
+        'webpack/hot/dev-server',
         './js/app.js'
     ],
-    cache: false,
     devtool: 'source-map',
     output: {
-        path: path.join(__dirname, 'js'),
-        filename: 'bundle.js'
+        path: __dirname,
+        filename: isProd ? 'bundle.min.js' : 'bundle.js'
     },
     resolve: {
-        modulesDirectories: ['node_modules'],
+        modulesDirectories: ['', 'node_modules'],
         extensions: ['', '.js']
     },
-    externals: [nodeExternals()],
     module: {
         loaders: [
             {
                 test: /\.js?$/,
-                exclude: /(node_modules|bower_components)/,
                 loaders: ['babel']
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css?modules'
             }
         ]
     },
     devServer: {
         contentBase: "./",
         noInfo: true,
-        inline: true,
+        inline: !isProd,
         progress: true,
         colors: true
     },
@@ -39,3 +41,4 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin()
     ]
 };
+
