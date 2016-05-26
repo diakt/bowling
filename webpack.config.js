@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     entry: [
@@ -13,9 +14,10 @@ module.exports = {
         filename: 'bundle.js'
     },
     resolve: {
-        extensions: ['', '.js', '.css']
+        modulesDirectories: ['node_modules'],
+        extensions: ['', '.js']
     },
-    modulesDirectories: ["node_modules", "bower_components"],
+    externals: [nodeExternals()],
     module: {
         loaders: [
             {
