@@ -17,12 +17,13 @@ export default class Layout extends AbstractComponent {
         this.removeChildNodes();
 
         if (!state.players.length) {
-            this.element.appendChild(this.createElement('welcome', 'Please, add new Player'));
+            this.element.appendChild(this.createElement('welcome', 'Please add new player'));
         } else {
             this.element.appendChild(this.createElement({
                 id: 'players-list',
                 'class': 'scoreboard'
             }));
+            
             new PlayersList({
                 element: document.querySelector('#players-list')
             });

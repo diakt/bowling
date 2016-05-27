@@ -2,6 +2,7 @@ import Store from './Store'
 import actionTypes from '../consts/actionTypes'
 import Game from '../utils/Game'
 import appDispatcher from '../dispatcher/appDispatcher'
+import {countArray} from '../utils/functions'
 
 const initialState = {
     frame: 0,
@@ -40,7 +41,7 @@ class AppStore extends Store {
 
     setWinner(state) {
         state.players.forEach((player) => {
-            var score = Game.countArray(player.score);
+            var score = countArray(player.score);
             player.isWinner = score === state.maxScore;
         });
     }

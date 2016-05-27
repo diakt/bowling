@@ -1,15 +1,7 @@
 export default class AbstractComponent {
 
-
-    countArray (pins) {
-        return pins.reduce(function (acc, score) {
-            acc += score;
-            return acc;
-        }, 0);
-    }
-    
     /**
-     * Removes all children from passed node or from the root element of component
+     * Removes all children from passed node or from the root element of the component
      * @param {HTMLElement} [node]
      */
     removeChildNodes (node) {

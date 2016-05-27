@@ -1,5 +1,6 @@
 import appStore from '../store/appStore'
 import AbstractComponent from './Abstract'
+import {countArray} from '../utils/functions'
 
 export default class Player extends AbstractComponent {
     /**
@@ -42,7 +43,7 @@ export default class Player extends AbstractComponent {
             pins = pins.slice(0);
 
             var frameElement = this.createElement('frame');
-            var previousScore = this.countArray(player.score.slice(0, i + 1));
+            var previousScore = countArray(player.score.slice(0, i + 1));
             var isStrike = player.strikes[i];
             var isSpare = player.spares[i];
             var rest;
@@ -54,14 +55,14 @@ export default class Player extends AbstractComponent {
                 frameElement.appendChild(this.createElement('score', '/'));
                 pins.shift();
                 pins.shift();
-                rest = this.countArray(pins);
+                rest = countArray(pins);
             } else if (pins[0] === 0) {
                 frameElement.appendChild(this.createElement('score', '–'));
-                rest = this.countArray(pins);
+                rest = countArray(pins);
             } else {
                 frameElement.appendChild(this.createElement('score', pins[0]));
                 pins.shift();
-                rest = this.countArray(pins || []);
+                rest = countArray(pins || []);
             }
 
             if (rest) {

@@ -1,3 +1,5 @@
+import {countArray} from '../utils/functions'
+
 export default class Game {
 
     /**
@@ -41,11 +43,11 @@ export default class Game {
         var score;
 
         if (this.isStrike(pins)) {
-            score = Game.countArray(pins) + Game.countArray(pins.slice(1));
+            score = countArray(pins) + countArray(pins.slice(1));
         } else if (this.isSpare(pins)) {
-            score = Game.countArray(pins) + pins[2];
+            score = countArray(pins) + pins[2];
         } else {
-            score = Game.countArray(pins);
+            score = countArray(pins);
         }
 
         return score;
@@ -80,7 +82,7 @@ export default class Game {
     static getMaxScore(players) {
         var score = [];
         players.forEach((player) => {
-            score.push(Game.countArray(player.score));
+            score.push(countArray(player.score));
         });
 
         return Math.max.apply(Math, score);
@@ -131,17 +133,5 @@ export default class Game {
     static isLastFrame(frame) {
         // counts from 0
         return frame === 9;
-    }
-
-    /**
-     * Summarizes all the numbers in array
-     * @param {Number[]} array
-     * @returns {Number}
-     */
-    static countArray(array) {
-        return array.reduce(function (sum, num) {
-            sum += num;
-            return sum;
-        }, 0);
     }
 }
