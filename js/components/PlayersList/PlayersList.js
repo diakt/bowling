@@ -1,6 +1,5 @@
-import appStore from '../store/appStore'
-import Player from './Player'
-import AbstractComponent from './Abstract'
+import appStore from 'store/appStore'
+import {Player, AbstractComponent} from 'components'
 
 export default class PlayersList extends AbstractComponent {
 

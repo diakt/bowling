@@ -1,7 +1,7 @@
-import {addPlayer, roll, start } from '../actions/ActionCreators'
-import dispatcher from '../dispatcher/appDispatcher'
-import appStore from '../store/appStore'
-import AbstractComponent from './Abstract'
+import {addPlayer, roll, start} from 'actions/ActionCreators'
+import dispatcher from 'dispatcher/appDispatcher'
+import appStore from 'store/appStore'
+import {AbstractComponent} from 'components'
 
 export default class Control extends AbstractComponent {
 

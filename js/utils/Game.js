@@ -1,4 +1,4 @@
-import {countArray} from '../utils/functions'
+import {countArray} from 'utils/functions'
 
 export default class Game {
 

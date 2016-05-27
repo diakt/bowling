@@ -14,6 +14,15 @@ module.exports = {
         filename: isProd ? 'bundle.min.js' : 'bundle.js'
     },
     resolve: {
+        root: path.resolve(__dirname),
+        alias: {
+            components: 'js/components',
+            actions: 'js/actions',
+            consts: 'js/consts',
+            dispatcher: 'js/dispatcher',
+            store: 'js/store',
+            utils: 'js/utils'
+        },
         modulesDirectories: ['', 'node_modules'],
         extensions: ['', '.js']
     },

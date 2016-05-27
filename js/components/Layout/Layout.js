@@ -1,7 +1,6 @@
-import AbstractComponent from './Abstract'
-import PlayersList from './PlayersList'
-import Control from './Control'
-import appStore from '../store/appStore'
+import {AbstractComponent, PlayersList, Control} from 'components'
+import appStore from 'store/appStore'
+
 
 export default class Layout extends AbstractComponent {
     constructor(options) {

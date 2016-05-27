@@ -1,4 +1,4 @@
-import actionTypes from '../consts/actionTypes'
+import actionTypes from 'consts/actionTypes'
 
 export function start() {
     return {

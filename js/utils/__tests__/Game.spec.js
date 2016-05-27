@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import Game from '../Game'
+import Game from 'utils/Game'
 import mocha from 'mocha'
 
 const {suite, test} = mocha;

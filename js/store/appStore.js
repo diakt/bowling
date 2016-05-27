@@ -1,8 +1,8 @@
 import Store from './Store'
-import actionTypes from '../consts/actionTypes'
-import Game from '../utils/Game'
-import appDispatcher from '../dispatcher/appDispatcher'
-import {countArray} from '../utils/functions'
+import actionTypes from 'consts/actionTypes'
+import Game from 'utils/Game'
+import appDispatcher from 'dispatcher/appDispatcher'
+import {countArray} from 'utils/functions'
 
 const initialState = {
     frame: 0,

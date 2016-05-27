@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {countArray} from '../functions'
+import {countArray} from 'utils/functions'
 import mocha from 'mocha'
 
 const {suite, test} = mocha;

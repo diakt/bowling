@@ -1,6 +1,6 @@
-import appStore from '../store/appStore'
-import AbstractComponent from './Abstract'
-import {countArray} from '../utils/functions'
+import appStore from 'store/appStore'
+import {AbstractComponent} from 'components'
+import {countArray} from 'utils/functions'
 
 export default class Player extends AbstractComponent {
     /**
