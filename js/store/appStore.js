@@ -39,6 +39,11 @@ class AppStore extends Store {
         return state;
     }
 
+    /**
+     * Sets the player earned most points as a winner,
+     * accepts multiple winners if they earned the same number of points
+     * @param {Object} state
+     */
     setWinner(state) {
         state.players.forEach((player) => {
             var score = countArray(player.score);
@@ -47,8 +52,8 @@ class AppStore extends Store {
     }
 
     /**
-     * Updates the state depending on the rules provided by the Game
-     * Defines whether the turn should be passed to the next player
+     * Updates the state depending on the rules provided by the Game module
+     * Defines whether the turn should be passed to the next player or the game is over
      * @param {Object} state
      * @returns {Object} state
      */
