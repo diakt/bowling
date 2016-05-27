@@ -81,8 +81,8 @@ export default class Player extends AbstractComponent {
             if (player.exit) {
                 this.element.className += ' exit';
             }
-            if (this.id === state.activePlayer) {
-                this.element.className += ' active';
+            if (this.id === state.current.player) {
+                this.element.className += ' current';
             }
         }
 

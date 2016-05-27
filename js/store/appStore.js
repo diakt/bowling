@@ -11,18 +11,17 @@ const initialState = {
     isOver: false,
     isOn: false,
 
+    players: [],
     current: {
+        player: null,
         score: 0,
         available: 0,
         pins: []
-    },
-
-    activePlayer: null,
-    players: []
+    }
 };
 
 class AppStore extends Store {
-    constructor(options){
+    constructor(options) {
         super(options);
     }
 
@@ -52,48 +51,51 @@ class AppStore extends Store {
     }
 
     /**
-     * Updates the state depending on the rules provided by the Game module
-     * Defines whether the turn should be passed to the next player or the game is over
+     * Updates the global state due to the latest roll in order to proceed or finish the game
      * @param {Object} state
      * @returns {Object} state
      */
-    updateFrame(state) {
+    updateGame(state) {
         var score = state.current.score;
-
-        // player's personal frame
-        var frame = state.players[state.activePlayer].pins.length - 1;
-
-        state.players[state.activePlayer].pins[frame].push(score);
-        state.players[state.activePlayer].score[frame] = Game.countScore(state.current.pins);
-        state.players[state.activePlayer].strikes[frame] = Game.isStrike(state.current.pins);
-        state.players[state.activePlayer].spares[frame] = Game.isSpare(state.current.pins);
-
+        var frame = state.players[state.current.player].pins.length - 1;
         var isCurrentOver = Game.isOver(state.current.pins);
         var isLastFrame = Game.isLastFrame(state.frame);
 
-        // manages next frame and next player
-        if (isCurrentOver) {
-            state.players[state.activePlayer].exit = isLastFrame;
+        // Sets the number of knocked down pins to the current player's state
+        state.players[state.current.player].pins[frame].push(score);
+        state.players[state.current.player].score[frame] = Game.countScore(state.current.pins);
+        state.players[state.current.player].strikes[frame] = Game.isStrike(state.current.pins);
+        state.players[state.current.player].spares[frame] = Game.isSpare(state.current.pins);
 
-            if (state.activePlayer === state.players.length - 1) {
+        // Manages the end of current frame
+        if (isCurrentOver) {
+            state.players[state.current.player].exit = isLastFrame;
+
+            if (state.current.player === state.players.length - 1) {
                 if (isLastFrame) {
                     state.isOver = isLastFrame;
-                    state.isOn = !state.isOver;
+                    state.isOn = !isLastFrame;
                     state.maxScore = Game.getMaxScore(state.players);
                 } else {
-                    state.activePlayer = 0;
+                    state.current.player = 0;
                 }
             } else {
-                state.activePlayer++;
+                state.current.player++;
             }
 
             state.current.pins = [];
-            state.players[state.activePlayer].pins.push([]);
+            state.players[state.current.player].pins.push([]);
         }
 
+        // Gets the number of available pins for the next roll
         state.current.available = Game.getAvailablePins(state.current.pins);
 
-        return state;
+        // Checks if the game is over or prepares it for the next roll
+        if (state.isOver) {
+            Object.assign(state, appStore.setWinner(state));
+        } else if (state.current.player === 0 && state.current.pins.length === 0) {
+            state.frame++;
+        }
     }
 }
 
@@ -110,26 +112,19 @@ appStore.appToken = appDispatcher.register((action) => {
 
         case actionTypes.START:
             state.isOn = true;
-            state.activePlayer = 0;
+            state.current.player = 0;
             state.current.available = 10;
             appStore.update(state);
             break;
 
         case actionTypes.ROLL:
+
+            // Pulls the number of pins knocked down in the current roll
             state.current.score = action.value || Game.roll(state.current.pins);
             state.current.pins.push(state.current.score);
 
-            // update current player
-            Object.assign(state, appStore.updateFrame(state));
-            appStore.update(state);
-
-            // check if the game if over or prepare for the next roll
-            if (state.isOver) {
-                Object.assign(state, appStore.setWinner(state));
-            } else if (state.activePlayer === 0 && state.current.pins.length === 0) {
-                state.frame++;
-            }
-
+            // Updates the game state
+            Object.assign(state, appStore.updateGame(state));
             appStore.update(state);
             break;
     }

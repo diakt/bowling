@@ -35,7 +35,7 @@ button:active {
 
 .control-add-player,
 .start {
-    width: 200px;
+    width: 120px;
     border-radius: 3px;
     display: inline;
     margin: 0 10px 0 0;
@@ -103,7 +103,7 @@ button:active {
     text-align: center;
 }
 
-.active .name {
+.current .name {
     font-weight: bold;
 }
 

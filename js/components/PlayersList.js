@@ -38,7 +38,7 @@ export default class PlayersList extends AbstractComponent {
                 'class': 'is-over',
                 text: 'The game is over'
             }));
-        } else if (state.activePlayer !== null) {
+        } else if (state.current.player !== null) {
             var text;
             if (state.frame + 1) {
                 text = 'Current frame: ' + (state.frame + 1);
