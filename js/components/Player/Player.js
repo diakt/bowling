@@ -26,11 +26,11 @@ export default class Player extends AbstractComponent {
      * Manages score like in the Ten-pin bowling scoreboard
      * @see https://en.wikipedia.org/wiki/Ten-pin_bowling
      */
-    prepareFramesData(state) {
+    prepareProps(state) {
         var player = state.players[this.id];
 
         // Iterates over the pins to specify data for template
-        return player.pins.reduce((framesAcc, pins, i) => {
+        var frames = player.pins.reduce((framesAcc, pins, i) => {
             if (pins.length === 0) {
                 return framesAcc;
             }
@@ -69,6 +69,8 @@ export default class Player extends AbstractComponent {
 
             return framesAcc;
         }, []);
+        
+        return {id: this.id + 1, frames};
     }
 
     /**
@@ -97,10 +99,7 @@ export default class Player extends AbstractComponent {
 
     render () {
         const state = appStore.state;
-        const props = {
-            frames: this.prepareFramesData(state),
-            id: this.id + 1
-        };
+        const props = this.prepareProps(state);
         const className = this.prepareClassName(state);
 
         this.update(className, childrenTpl(props));

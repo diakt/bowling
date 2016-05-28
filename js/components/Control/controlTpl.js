@@ -6,17 +6,17 @@ export function elementTpl() {
     `);
 }
 
-const addPlayer = `
-    <button class="control-add-player">Add player</button>
-`;
+export function addPlayerTpl() {
+    return createNode(`
+        <button class="control-add-player">Add player</button>
+    `);
+}
 
-const start = `
-    <button class="start">Start</button>
-`;
-
-const rollRandom = `
-    <button class="roll-random">?</button>
-`;
+export function startTpl() {
+    return createNode(`
+        <button class="start">Start</button>
+    `);
+}
 
 function rollValue(available) {
     var buttons = '';
@@ -28,22 +28,15 @@ function rollValue(available) {
     return buttons;
 }
 
-export function childrenTpl(props) {
-    var buttons;
-    if (props.available) {
-        buttons = `
-            <div class="buttons-container">
-                ${rollRandom}
-                ${rollValue(props.available)}
-            </div>
-        `;
-    }
+export function buttonsTpl(props) {
 
     return createNode(`
-        <div id="controls" class="controls">
-            ${(props.addPlayer ? addPlayer : '')}
-            ${(props.start ? start : '')}
-            ${(props.available ? buttons : '')}
+        <div class="buttons-container">
+            <div class="note">Choose the number of pins to be knocked down</div>
+            <div class="buttons-container">
+                <button class="roll-random">?</button>
+                ${rollValue(props.available)}
+            </div>
         </div>
     `);
 }

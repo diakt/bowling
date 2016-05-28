@@ -2,7 +2,7 @@ import {addPlayer, roll, start} from 'actions/ActionCreators'
 import dispatcher from 'dispatcher/appDispatcher'
 import appStore from 'store/appStore'
 import {AbstractComponent} from 'components'
-import {elementTpl, addPlayerTpl, startTpl, rollTpl, childrenTpl} from './controlTpl'
+import {elementTpl, addPlayerTpl, startTpl, buttonsTpl} from './controlTpl'
 
 export default class Control extends AbstractComponent {
 
@@ -18,14 +18,14 @@ export default class Control extends AbstractComponent {
         super();
         this.element = options.element;
         this.render();
-        this.element.addEventListener('click', this.routeEvents.bind(this));
+        this.element.addEventListener('click', this.bindEvents.bind(this));
     }
 
     /**
      * Handles clicks on child elements
      * @param {Object} e - Native DOM Click
      */
-    routeEvents(e) {
+    bindEvents(e) {
         switch (e.target.className) {
             case 'roll-random':
                 dispatcher.dispatch(roll());
@@ -46,28 +46,29 @@ export default class Control extends AbstractComponent {
         }
     }
 
-    prepareButtons(state){
+    prepareProps(state) {
         var props = {};
-
-        if (!state.isOn && !state.isOver) {
-            props.addPlayer = true;
-
-            if (state.players.length) {
-                props.start = true;
-            }
-        }
-
-        if (state.players.length && !state.isOver && state.isOn) {
-            props.available = state.current.available;
-        }
-
+        props.available = state.current.available;
         return props;
     }
 
     render() {
         const state = appStore.state;
-        const props = this.prepareButtons(state);
+        const props = this.prepareProps(state);
+        var children = [];
 
-        this.update(childrenTpl(props));
+        if (!state.isOn && !state.isOver) {
+            children.push(addPlayerTpl());
+
+            if (state.players.length) {
+                children.push(startTpl());
+            }
+        }
+
+        if (state.players.length && !state.isOver && state.isOn) {
+            children.push(buttonsTpl(props));
+        }
+
+        this.update(children);
     }
 }
