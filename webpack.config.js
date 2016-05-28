@@ -24,7 +24,7 @@ module.exports = {
             utils: 'js/utils'
         },
         modulesDirectories: ['', 'node_modules'],
-        extensions: ['', '.js']
+        extensions: ['', '.js', '.css']
     },
     module: {
         loaders: [
@@ -34,7 +34,10 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: 'style!css?modules'
+                loader: [
+                    'style',
+                    'css?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]'
+                ].join('!')
             }
         ]
     },

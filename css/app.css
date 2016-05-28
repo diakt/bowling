@@ -11,36 +11,6 @@ html, body {
     margin: 0;
 }
 
-button {
-    line-height: 40px;
-    font-size: 16px;
-    display: block;
-    margin: 10px 20px 10px 0;
-    width: 40px;
-    border-radius: 100%;
-    border: 1px solid;
-    background: #fff;
-    cursor: pointer;
-    outline: none;
-}
-
-button:active {
-    background: rgba(0,0,0,.1);
-    outline: none;
-}
-
-.buttons-container button {
-    display: inline;
-}
-
-.control-add-player,
-.start {
-    width: 120px;
-    border-radius: 3px;
-    display: inline;
-    margin: 0 10px 0 0;
-
-}
 .layout {
     padding: 10% 50px;
     margin: auto;
@@ -154,12 +124,4 @@ button:active {
     font-weight: bold;
     font-size: 16px;
     width: 20px;
-}
-
-.controls {
-    padding: 20px 0 0;
-}
-
-.note {
-    padding: 10px 0 20px;
 }

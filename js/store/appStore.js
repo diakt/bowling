@@ -119,7 +119,7 @@ appStore.appToken = appDispatcher.register((action) => {
 
         case actionTypes.ROLL:
 
-            // Pulls the number of pins knocked down in the current roll
+            // Sets the number of pins knocked down in the current roll
             state.current.score = action.value || Game.roll(state.current.pins);
             state.current.pins.push(state.current.score);
 

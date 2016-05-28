@@ -26,7 +26,7 @@ export default class Control extends AbstractComponent {
      * @param {Object} e - Native DOM Click
      */
     bindEvents(e) {
-        switch (e.target.className) {
+        switch (e.target.getAttribute('data-click')) {
             case 'roll-random':
                 dispatcher.dispatch(roll());
                 break;
@@ -36,7 +36,7 @@ export default class Control extends AbstractComponent {
                 dispatcher.dispatch(roll(value));
                 break;
 
-            case 'control-add-player':
+            case 'add-player':
                 dispatcher.dispatch(addPlayer());
                 break;
 
