@@ -1,5 +1,5 @@
 import {Layout} from 'components'
 
-const app = new Layout({
+new Layout({
     element: document.querySelector('#app')
 });
