@@ -66,6 +66,7 @@ button:active {
     display: inline-block;
     min-height: 50px;
     vertical-align: middle;
+    font-size: 0;
 }
 
 .player {

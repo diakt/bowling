@@ -1,8 +1,14 @@
 import appStore from 'store/appStore'
 import {AbstractComponent} from 'components'
 import {countArray} from 'utils/functions'
+import {elementTpl, childrenTpl} from './playerTpl'
 
 export default class Player extends AbstractComponent {
+
+    static tpl() {
+        return elementTpl();
+    }
+
     /**
      * Sets the root element and subscribes on updates from Store
      * @param {Object} options
@@ -17,77 +23,86 @@ export default class Player extends AbstractComponent {
     }
 
     /**
-     * Renders children elements
-     * prints score like in Ten-pin bowling scoreboard
+     * Manages score like in the Ten-pin bowling scoreboard
      * @see https://en.wikipedia.org/wiki/Ten-pin_bowling
      */
-    render () {
-        var state = appStore.state;
-
-        // Player name
-        var nameElement = this.createElement('name', 'Player ' + (this.id + 1) + ': ');
-
-        // Frames container
-        var framesElement = this.createElement('frames');
+    prepareFramesData(state) {
         var player = state.players[this.id];
 
-        this.removeChildNodes();
-
-        // Iterates over the pins in order to render every frame
-        player.pins.forEach((pins, i) => {
+        // Iterates over the pins to specify data for template
+        return player.pins.reduce((framesAcc, pins, i) => {
             if (pins.length === 0) {
-                return;
+                return framesAcc;
             }
 
             // Clones array from store
             pins = pins.slice(0);
 
-            var frameElement = this.createElement('frame');
-            var previousScore = countArray(player.score.slice(0, i + 1));
-            var isStrike = player.strikes[i];
-            var isSpare = player.spares[i];
-            var rest;
+            let previousScore = countArray(player.score.slice(0, i + 1));
+            let isStrike = player.strikes[i];
+            let isSpare = player.spares[i];
+            let score = [];
+            let rest;
 
-            // Operates with score in
+            // Operates with score
             if (isStrike) {
-                frameElement.appendChild(this.createElement('score', 'X'));
+                score.push('X');
             } else if (isSpare) {
-                frameElement.appendChild(this.createElement('score', '/'));
+                score.push('/');
                 pins.shift();
                 pins.shift();
                 rest = countArray(pins);
             } else if (pins[0] === 0) {
-                frameElement.appendChild(this.createElement('score', '–'));
+                score.push('–');
                 rest = countArray(pins);
             } else {
-                frameElement.appendChild(this.createElement('score', pins[0]));
+                score.push(pins[0]);
                 pins.shift();
                 rest = countArray(pins || []);
             }
 
             if (rest) {
-                frameElement.appendChild(this.createElement('score', rest));
+                score.push(rest);
             }
 
-            frameElement.appendChild(this.createElement('frame-score', previousScore));
-            framesElement.appendChild(frameElement);
+            framesAcc.push({score, previousScore});
 
-        });
+            return framesAcc;
+        }, []);
+    }
 
-        this.element.appendChild(nameElement);
-        this.element.appendChild(framesElement);
+    /**
+     * Manages className for the root element
+     * @param {Object} state
+     */
+    prepareClassName(state) {
+        var className = '';
+        var player = state.players[this.id];
 
         if (!state.isOver) {
             if (player.exit) {
-                this.element.className += ' exit';
+                className += ' exit';
             }
             if (this.id === state.current.player) {
-                this.element.className += ' current';
+                className += ' current';
             }
         }
 
         if (player.isWinner) {
-            this.element.className += ' winner';
+            className += ' winner';
         }
+
+        return className;
+    }
+
+    render () {
+        const state = appStore.state;
+        const props = {
+            frames: this.prepareFramesData(state),
+            id: this.id + 1
+        };
+        const className = this.prepareClassName(state);
+
+        this.update(className, childrenTpl(props));
     }
 }

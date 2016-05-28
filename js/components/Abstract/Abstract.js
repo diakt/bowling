@@ -4,7 +4,7 @@ export default class AbstractComponent {
      * Removes all children from passed node or from the root element of the component
      * @param {HTMLElement} [node]
      */
-    removeChildNodes (node) {
+    removeChildNodes(node) {
         node || (node = this.element);
         while (node.firstChild) {
             node.removeChild(node.firstChild);
@@ -12,33 +12,57 @@ export default class AbstractComponent {
         return this;
     }
 
+    updateClass(className) {
+        var classes = (this.element.className + ' ' + className).split(' ');
+        var unique = Array.from(new Set(classes));
+        this.element.className = unique.join(' ');
+        return this;
+    }
+
     /**
-     * Shorthand for native DOM methods
-     * @param {Object|String} attrs
-     * @param {String} [attrs.text]
-     * @param {String} [attrs.tag]
-     * @param {String} [text]
+     * Updates child nodes of Component's element
+     * @param {String|HTMLElement|Array} className
+     * @param {String|HTMLElement|Array} [childNode]
      */
-    createElement (attrs, text) {
-        var element = document.createElement((attrs && attrs.tag) || 'div');
-        if (attrs) {
-            if (typeof attrs === 'string') {
-                element.setAttribute('class', attrs);
-            } else if (typeof attrs === 'object') {
-                Object.keys(attrs).forEach((attrName) => {
-                    if (attrName !== 'tag' && attrName !== 'text') {
-                        element.setAttribute(attrName, attrs[attrName]);
-                    }
-                });
-            }
+    update(className, childNode) {
+
+        this.removeChildNodes();
+
+        if (typeof className === 'string') {
+            this.updateClass(className);
+        } else {
+            childNode = className;
         }
 
-        text || (text = attrs && attrs.text || null);
-
-        if (text) {
-            element.appendChild(document.createTextNode(text));
+        if (Array.isArray(childNode)) {
+            childNode.forEach(this.append.bind(this));
+        } else {
+            this.append(childNode);
         }
 
-        return element;
+        return this;
+    }
+
+    append(Component) {
+
+        // HTMLElement appends directly
+        if (Component instanceof HTMLElement) {
+            this.element.appendChild(Component);
+
+            // Component Class appends its element, then instantiates itself
+        } else if (typeof Component === 'function') {
+            let element = Component.tpl();
+            this.element.appendChild(element);
+            new Component({element});
+
+            // Object contains a Component Class and options for its initialization
+            // First reads an element, then its options, then appends and instantiates Component
+        } else if (Component instanceof Object && Component.Class) {
+            let element = Component.Class.tpl();
+            let options = {element};
+            Object.assign(options, Component.options);
+            this.element.appendChild(element);
+            new Component.Class(options);
+        }
     }
 }

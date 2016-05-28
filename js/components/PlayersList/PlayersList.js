@@ -1,7 +1,12 @@
 import appStore from 'store/appStore'
 import {Player, AbstractComponent} from 'components'
+import {elementTpl, isOverTpl, frameNumberTpl} from './playersListTpl'
 
 export default class PlayersList extends AbstractComponent {
+
+    static tpl() {
+        return elementTpl();
+    }
 
     constructor(options) {
         super();
@@ -9,47 +14,31 @@ export default class PlayersList extends AbstractComponent {
         this.render();
     }
 
-    /**
-     * Instantiates new playerComponent and inserts it into the DOM
-     * @param {Object} [playerState]
-     * @param {Number} i - player id
-     */
-    addPlayer(playerState, i) {
-        var player = this.createElement('player');
-        this.element.appendChild(player);
-
-        new Player({
-            id: i,
-            element: player
-        });
+    prepareText(state) {
+        var text;
+        if (state.frame + 1) {
+            text = 'Current frame: ' + (state.frame + 1);
+        } else {
+            text = 'Waiting for the first roll'
+        }
+        return text;
     }
 
-    /**
-     * Renders children elements
-     */
     render() {
         const state = appStore.state;
-
-        this.removeChildNodes();
+        var children = [];
 
         if (state.isOver) {
-            this.element.appendChild(this.createElement({
-                'class': 'is-over',
-                text: 'The game is over'
-            }));
+            children.push(isOverTpl());
         } else if (state.current.player !== null) {
-            var text;
-            if (state.frame + 1) {
-                text = 'Current frame: ' + (state.frame + 1);
-            } else {
-                text = 'Waiting for the first roll'
-            }
-            this.element.appendChild(this.createElement({
-                'class': 'frame-number',
-                text: text
-            }));
+            let text = this.prepareText(state);
+            children.push(frameNumberTpl({text}));
         }
 
-        state.players.forEach(this.addPlayer.bind(this));
+        state.players.forEach((playerState, i) => {
+            children.push({Class: Player, options: {id: i}});
+        });
+
+        this.update(children);
     }
 }

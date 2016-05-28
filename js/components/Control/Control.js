@@ -2,8 +2,13 @@ import {addPlayer, roll, start} from 'actions/ActionCreators'
 import dispatcher from 'dispatcher/appDispatcher'
 import appStore from 'store/appStore'
 import {AbstractComponent} from 'components'
+import {elementTpl, addPlayerTpl, startTpl, rollTpl, childrenTpl} from './controlTpl'
 
 export default class Control extends AbstractComponent {
+
+    static tpl() {
+        return elementTpl();
+    }
 
     /**
      * Sets the root element and subscribes on updates from Store
@@ -41,59 +46,28 @@ export default class Control extends AbstractComponent {
         }
     }
 
-    /**
-     * Prints Buttons knocking exact number of pins depending on available pins
-     * after previous roll
-     *
-     * @param {Number} available - available pins in current roll
-     */
-    addButtons(available) {
-        var buttonContainer = this.createElement('buttons-container');
-
-        buttonContainer.appendChild(this.createElement({
-            tag: 'button',
-            'class': 'roll-random',
-            text: '?'
-        }));
-
-        for (var i = 0; i < available; i++) {
-            buttonContainer.appendChild(this.createElement({
-                tag: 'button',
-                'data-value': i + 1,
-                'class': 'roll-value',
-                text: i + 1
-            }))
-        }
-
-        this.element.appendChild(buttonContainer);
-    }
-
-    /**
-     * Renders children elements
-     */
-    render() {
-        var state = appStore.state;
-
-        this.removeChildNodes();
+    prepareButtons(state){
+        var props = {};
 
         if (!state.isOn && !state.isOver) {
-            this.element.appendChild(this.createElement({
-                tag: 'button',
-                class: 'control-add-player',
-                text: 'Add player'
-            }));
+            props.addPlayer = true;
 
             if (state.players.length) {
-                this.element.appendChild(this.createElement({
-                    tag: 'button',
-                    class: 'start',
-                    text: 'Start'
-                }));
+                props.start = true;
             }
         }
 
         if (state.players.length && !state.isOver && state.isOn) {
-            this.addButtons(state.current.available);
+            props.available = state.current.available;
         }
+
+        return props;
+    }
+
+    render() {
+        const state = appStore.state;
+        const props = this.prepareButtons(state);
+
+        this.update(childrenTpl(props));
     }
 }

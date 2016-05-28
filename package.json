@@ -28,7 +28,6 @@
     "mocha": "^2.5.1",
     "mocha-webpack": "^0.3.1",
     "webpack": "1.13.0",
-    "webpack-dev-server": "1.14.1",
-    "webpack-node-externals": "^1.2.0"
+    "webpack-dev-server": "1.14.1"
   }
 }

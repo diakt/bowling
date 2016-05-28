@@ -1,6 +1,6 @@
 import {AbstractComponent, PlayersList, Control} from 'components'
 import appStore from 'store/appStore'
-
+import {welcomeTpl} from './layoutTpl'
 
 export default class Layout extends AbstractComponent {
     constructor(options) {
@@ -11,30 +11,17 @@ export default class Layout extends AbstractComponent {
     }
 
     render() {
-        var state = appStore.state;
-
-        this.removeChildNodes();
+        const state = appStore.state;
+        var children = [];
 
         if (!state.players.length) {
-            this.element.appendChild(this.createElement('welcome', 'Please add new player'));
+            children.push(welcomeTpl());
         } else {
-            this.element.appendChild(this.createElement({
-                id: 'players-list',
-                'class': 'scoreboard'
-            }));
-            
-            new PlayersList({
-                element: document.querySelector('#players-list')
-            });
+            children.push(PlayersList);
         }
 
-        this.element.appendChild(this.createElement({
-            'class': 'controls',
-            id: 'controls'
-        }));
+        children.push(Control);
 
-        new Control({
-            element: document.querySelector('#controls')
-        });
+        this.update(children);
     }
 };
