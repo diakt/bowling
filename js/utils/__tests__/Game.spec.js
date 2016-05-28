@@ -34,6 +34,10 @@ suite('Game', () => {
                 expected: 9
             },
             {
+                pins: [1, 9, 0],
+                expected: 10
+            },
+            {
                 pins: [10, 9, 1],
                 expected: (10 + 9 + 1) + 9 + 1
             },

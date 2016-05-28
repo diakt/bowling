@@ -45,7 +45,7 @@ export default class Game {
         if (this.isStrike(pins)) {
             score = countArray(pins) + countArray(pins.slice(1));
         } else if (this.isSpare(pins)) {
-            score = countArray(pins) + pins[2];
+            score = countArray(pins) + (pins[2] ? pins[2] : 0);
         } else {
             score = countArray(pins);
         }
