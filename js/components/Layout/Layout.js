@@ -1,6 +1,6 @@
 import appStore from 'store/appStore'
 import {AbstractComponent, PlayersList, Control} from 'components'
-import {elementTpl, welcomeTpl, isOverTpl, frameNumberTpl} from './layoutTpl'
+import {elementTpl, titleTpl, welcomeTpl, isOverTpl, frameNumberTpl} from './layoutTpl'
 
 export default class Layout extends AbstractComponent {
 
@@ -18,9 +18,7 @@ export default class Layout extends AbstractComponent {
         var props = {};
 
         if (state.frame + 1) {
-            props.text = 'Current frame: ' + (state.frame + 1);
-        } else {
-            props.text = 'Waiting for the first roll'
+            props.frame = state.frame + 1;
         }
 
         return props;
@@ -30,6 +28,8 @@ export default class Layout extends AbstractComponent {
         const state = appStore.state;
         const props = this.prepareProps(state);
         var children = [];
+
+        children.push(titleTpl());
 
         if (!state.players.length) {
             children.push(welcomeTpl());

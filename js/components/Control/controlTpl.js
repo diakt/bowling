@@ -33,9 +33,10 @@ function rollValue(available) {
 export function buttonsTpl(props) {
     return createNode(`
         <div class="${style.container}">
-            <div class="${style.note}">Choose the number of pins to be knocked down</div>
+            <div class="${style.noteRandom}">Try roll at random</div>
+            <button class="${style.button} ${style.rollRandom}" data-click="roll-random">0...${props.available}</button>
+            <div class="${style.note}">or choose the exact number of pins to be knocked down</div>
             <div class="${style.buttonsContainer}">
-                <button class="${style.button}" data-click="roll-random">?</button>
                 ${rollValue(props.available)}
             </div>
         </div>

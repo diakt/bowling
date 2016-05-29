@@ -6,7 +6,7 @@
     line-height: 40px;
     font-size: 16px;
     display: block;
-    margin: 10px 20px 10px 0;
+    margin: 0 20px 20px 0;
     width: 40px;
     border-radius: 100%;
     border: 1px solid;
@@ -24,11 +24,16 @@
     padding: 20px 0 0;
 }
 
+.buttons-container {
+    width: 320px;
+}
+
 .buttons-container .button {
     display: inline;
 }
 
 .add-player,
+.roll-random,
 .start {
     width: 120px;
     border-radius: 3px;
@@ -36,6 +41,15 @@
     margin: 0 10px 0 0;
 }
 
+.roll-random {
+    margin: 0 0 20px;
+}
+
 .note {
     padding: 0 0 20px;
 }
+
+.note-random {
+    padding: 0 0 20px;
+}
+

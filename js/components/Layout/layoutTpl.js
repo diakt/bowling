@@ -7,6 +7,12 @@ export function elementTpl() {
     `);
 }
 
+export function titleTpl() {
+    return createNode(`
+        <div class="${style.title}">The very minimal interface for a bowling scoring system</div>
+    `)
+}
+
 export function welcomeTpl() {
     return createNode(`
         <div class="${style.welcome}">Please add new player</div>
@@ -21,6 +27,6 @@ export function isOverTpl() {
 
 export function frameNumberTpl(props) {
     return createNode(`
-        <div class="${style.frameNumber}">${props.text}</div>
+        <div class="${style.currentFrame}">Current frame: <span class="${style.number}">${props.frame}</span></div>
     `);
 }
