@@ -4,10 +4,10 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    entry: isProd ? './js/index.js' : [
+    entry: isProd ? './src/index.js' : [
         'webpack-dev-server/client?http://0.0.0.0:8080',
         'webpack/hot/dev-server',
-        './js/index.js'
+        './src/index.js'
     ],
     devtool: !isProd && 'source-map',
     output: {
@@ -17,12 +17,12 @@ module.exports = {
     resolve: {
         root: path.resolve(__dirname),
         alias: {
-            components: 'js/components',
-            actions: 'js/actions',
-            consts: 'js/consts',
-            dispatcher: 'js/dispatcher',
-            store: 'js/store',
-            utils: 'js/utils'
+            components: 'src/components',
+            actions: 'src/actions',
+            consts: 'src/consts',
+            dispatcher: 'src/dispatcher',
+            store: 'src/store',
+            utils: 'src/utils'
         },
         modulesDirectories: ['', 'node_modules'],
         extensions: ['', '.js', '.css']

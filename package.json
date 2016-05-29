@@ -14,7 +14,7 @@
   "homepage": "https://github.com/diakt/bowling#readme",
   "scripts": {
     "postinstall": "npm run test && npm start",
-    "test": "./node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.tests.config.js \"js/**/*.test.js\"",
+    "test": "./node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.tests.config.js \"src/**/*.test.js\"",
     "start": "npm run dev",
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --config webpack.config.js",
     "build": "NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p"
@@ -30,6 +30,7 @@
     "mocha-webpack": "^0.3.1",
     "style-loader": "^0.13.1",
     "webpack": "1.13.0",
-    "webpack-dev-server": "1.14.1"
+    "webpack-dev-server": "1.14.1",
+    "webpack-node-externals": "^1.2.0"
   }
 }
