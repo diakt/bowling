@@ -10,7 +10,7 @@ export function elementTpl(){
 export function childrenTpl (props) {
     var frames = '';
 
-    if (props.frames !== undefined) {
+    if (props.frames !== undefined && props.frames.length) {
         frames = props.frames.reduce((codeAcc, frame) => {
             codeAcc += `
                 <div class="${style.frame}">
@@ -24,9 +24,13 @@ export function childrenTpl (props) {
     }
 
     return createNode(`
-        <div class="${style.playerWrapper}">
+        <div class="${style.playerWrapper} ${styleClassName(props)}">
             <div class="${style.name}">Player ${props.id}:</div>
             <div class="${style.frames}">${frames}</div>
         </div>
     `);
+}
+
+function styleClassName(props) {
+    return props.classNames.map(className => style[className]);
 }

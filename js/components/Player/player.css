@@ -8,8 +8,8 @@
     font-size: 0;
 }
 
-.player.exit .name:after,
-.player.winner .name:after {
+.exit .name:after,
+.winner .name:after {
     content: 'exit';
     display: block;
     position: absolute;
@@ -18,7 +18,7 @@
     left: 0;
 }
 
-.player.winner .name:after {
+.winner .name:after {
     content: 'winner';
     color: #f33;
 }

@@ -12,27 +12,12 @@ export default class AbstractComponent {
         return this;
     }
 
-    updateClass(className) {
-        var classes = (this.element.className + ' ' + className).split(' ');
-        var unique = Array.from(new Set(classes));
-        this.element.className = unique.join(' ');
-        return this;
-    }
-
     /**
      * Updates child nodes of Component's element
-     * @param {String|HTMLElement|Array} className
-     * @param {String|HTMLElement|Array} [childNode]
+     * @param {HTMLElement|Array} childNode
      */
-    update(className, childNode) {
-
+    update(childNode) {
         this.removeChildNodes();
-
-        if (typeof className === 'string') {
-            this.updateClass(className);
-        } else {
-            childNode = className;
-        }
 
         if (Array.isArray(childNode)) {
             childNode.forEach(this.append.bind(this));
