@@ -1,0 +1,17 @@
+
+.layout {
+    padding: 10% 50px;
+    margin: auto;
+    text-align: left;
+}
+
+.is-over,
+.frame-number {
+    padding: 0 0 20px 80px
+}
+
+.welcome {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 60px;
+}

@@ -1,13 +1,17 @@
-import {AbstractComponent, PlayersList, Control} from 'components'
 import appStore from 'store/appStore'
-import {welcomeTpl, isOverTpl, frameNumberTpl} from './layoutTpl'
+import {AbstractComponent, PlayersList, Control} from 'components'
+import {elementTpl, welcomeTpl, isOverTpl, frameNumberTpl} from './layoutTpl'
 
 export default class Layout extends AbstractComponent {
+
+    static tpl(){
+        return elementTpl();
+    }
+
     constructor(options) {
         super();
         this.element = options.element;
         this.render();
-        appStore.onChange(this.render.bind(this));
     }
 
     prepareProps(state) {

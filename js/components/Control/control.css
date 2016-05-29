@@ -24,20 +24,18 @@
     padding: 20px 0 0;
 }
 
-.buttonsContainer .button {
+.buttons-container .button {
     display: inline;
 }
 
-.addPlayer,
+.add-player,
 .start {
     width: 120px;
     border-radius: 3px;
     display: inline;
     margin: 0 10px 0 0;
-
 }
 
-
 .note {
-    padding: 0px 0 20px;
+    padding: 0 0 20px;
 }

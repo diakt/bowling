@@ -1,7 +1,5 @@
 var nodeExternals = require('webpack-node-externals');
-var hostname = 'localhost';
-var port = '8080';
-var config = require('./webpack.config')
+var config = require('./webpack.config');
 
 module.exports = {
     target: 'node', // in order to ignore built-in modules like path, fs, etc.
@@ -21,7 +19,7 @@ module.exports = {
         ]
     },
     devServer: {
-        host: hostname,
-        port: port
+        host: 'localhost',
+        port: '8080'
     }
 };

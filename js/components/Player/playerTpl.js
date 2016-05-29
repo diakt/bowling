@@ -1,8 +1,9 @@
 import {createNode} from 'utils/functions'
+import style from './player.css'
 
 export function elementTpl(){
     return createNode(`
-        <div class="player"></div>
+        <div class="${style.player}"></div>
     `);
 }
 
@@ -12,10 +13,10 @@ export function childrenTpl (props) {
     if (props.frames !== undefined) {
         frames = props.frames.reduce((codeAcc, frame) => {
             codeAcc += `
-                <div class="frame">
-                    <div class="score">${(frame.score[0] || '')}</div>
-                    <div class="score">${(frame.score[1] || '')}</div>
-                    <div class="frame-score">${frame.previousScore}</div>
+                <div class="${style.frame}">
+                    <div class="${style.score}">${(frame.score[0] || '')}</div>
+                    <div class="${style.score}">${(frame.score[1] || '')}</div>
+                    <div class="${style.frameScore}">${frame.previousScore}</div>
                 </div>
             `;
             return codeAcc;
@@ -23,9 +24,9 @@ export function childrenTpl (props) {
     }
 
     return createNode(`
-        <div class="player-wrapper">
-            <div class="name">Player ${props.id}:</div>
-            <div class="frames">${frames}</div>
+        <div class="${style.playerWrapper}">
+            <div class="${style.name}">Player ${props.id}:</div>
+            <div class="${style.frames}">${frames}</div>
         </div>
     `);
 }

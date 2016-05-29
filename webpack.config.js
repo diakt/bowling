@@ -3,10 +3,10 @@ var path = require('path');
 var isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    entry: isProd ? './js/app.js' : [
+    entry: isProd ? './js/index.js' : [
         'webpack-dev-server/client?http://0.0.0.0:8080',
         'webpack/hot/dev-server',
-        './js/app.js'
+        './js/index.js'
     ],
     devtool: 'source-map',
     output: {
@@ -36,7 +36,7 @@ module.exports = {
                 test: /\.css$/,
                 loader: [
                     'style',
-                    'css?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]'
+                    'css?camelCase&sourceMap&modules&localIdentName=[local]_[hash:base64:5]'
                 ].join('!')
             }
         ]

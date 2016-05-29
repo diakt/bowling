@@ -23,8 +23,7 @@ function rollValue(available) {
     var buttons = '';
     for (let i = 0; i < available; i++) {
         buttons += `
-            <button
-                class="${style.button}"
+            <button class="${style.button}"
                 data-click="roll-value" data-value="${i + 1}">${i + 1}</button>
         `;
     }
