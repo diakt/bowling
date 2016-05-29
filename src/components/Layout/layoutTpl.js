@@ -9,7 +9,10 @@ export function elementTpl() {
 
 export function titleTpl() {
     return createNode(`
-        <div class="${style.title}">Minimalistic interface for a bowling scoring system</div>
+        <div class="${style.title}">
+            Minimalistic interface
+            for&nbsp;a&nbsp;<a class="${style.link}" href="https://github.com/diakt/bowling">bowling scoring system<a/>
+        </div>
     `)
 }
 
