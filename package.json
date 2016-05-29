@@ -1,7 +1,7 @@
 {
   "name": "bowling",
   "version": "1.0.0",
-  "description": "Vanilla implementation of scoring system for a bowling game",
+  "description": "Vanilla implementation of bowling scoring system",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/diakt/bowling.git"
@@ -14,7 +14,7 @@
   "homepage": "https://github.com/diakt/bowling#readme",
   "scripts": {
     "postinstall": "npm run test && npm start",
-    "test": "./node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.tests.config.js \"js/**/*.spec.js\"",
+    "test": "./node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.tests.config.js \"js/**/*.test.js\"",
     "start": "npm run dev",
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --config webpack.config.js",
     "build": "NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p"
