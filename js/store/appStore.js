@@ -118,9 +118,16 @@ appStore.appToken = appDispatcher.register((action) => {
             break;
 
         case actionTypes.ROLL:
+            let score;
+
+            if (!isNaN(action.value)) {
+                score = action.value;
+            } else {
+                score = Game.roll(state.current.pins);
+            }
 
             // Sets the number of pins knocked down in the current roll
-            state.current.score = action.value || Game.roll(state.current.pins);
+            state.current.score = score;
             state.current.pins.push(state.current.score);
 
             // Updates the game state

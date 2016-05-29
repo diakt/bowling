@@ -22,7 +22,7 @@ export default class Game {
                 score = Math.floor(Math.random() * (8 - 5)) + 5;
                 break;
             case 3:
-                score = Math.floor(Math.random() * (6 - 1)) + 1;
+                score = Math.floor(Math.random() * 6);
                 break;
 
             // Second roll is a bit difficult, a chance to get Spare mostly depends on Player's fortune
