@@ -131,7 +131,12 @@ export default class Game {
      * @returns {Boolean}
      */
     static isLastFrame(frame) {
+
         // counts from 0
-        return frame === 9;
+        return frame === Game.getAvailableFrames() - 1;
+    }
+
+    static getAvailableFrames() {
+        return 10;
     }
 }

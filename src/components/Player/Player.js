@@ -90,6 +90,7 @@ export default class Player extends AbstractComponent {
 
         return {
             id: this.id + 1,
+            availableFrames: state.availableFrames,
             frames,
             classNames
         };

@@ -1,16 +1,16 @@
 import {createNode} from 'utils/functions'
 import style from './player.css'
 
-export function elementTpl(){
+export function elementTpl() {
     return createNode(`
         <div class="${style.player}"></div>
     `);
 }
 
-export function childrenTpl (props) {
+export function childrenTpl(props) {
     var frames = '';
 
-    if (props.frames !== undefined && props.frames.length) {
+    if (props.frames.length) {
         frames = props.frames.reduce((codeAcc, frame) => {
             codeAcc += `
                 <div class="${style.frame}">
@@ -21,6 +21,17 @@ export function childrenTpl (props) {
             `;
             return codeAcc;
         }, '');
+    }
+
+    var rest = props.availableFrames - props.frames.length;
+
+    while (rest) {
+        rest--;
+        frames += `
+                <div class="${style.frame}">
+                    <div class="${style.score} ${style.score}"></div>
+                </div>
+        `;
     }
 
     return createNode(`

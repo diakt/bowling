@@ -6,6 +6,7 @@ import {countArray} from 'utils/functions'
 
 const initialState = {
     frame: 0,
+    availableFrames: 0,
     maxScore: 0,
 
     isOver: false,
@@ -113,7 +114,8 @@ appStore.appToken = appDispatcher.register((action) => {
         case actionTypes.START:
             state.isOn = true;
             state.current.player = 0;
-            state.current.available = 10;
+            state.current.available = Game.getAvailablePins([]);
+            state.availableFrames = Game.getAvailableFrames();
             appStore.update(state);
             break;
 
