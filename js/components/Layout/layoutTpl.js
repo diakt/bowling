@@ -9,7 +9,7 @@ export function elementTpl() {
 
 export function titleTpl() {
     return createNode(`
-        <div class="${style.title}">The very minimal interface for a bowling scoring system</div>
+        <div class="${style.title}">Minimalistic interface for a bowling scoring system</div>
     `)
 }
 

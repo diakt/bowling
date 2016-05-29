@@ -16,7 +16,4 @@ node_modules
 *.tmp
 
 # generated
-bundle.js
-bundle.min.js
-bundle.js.map
-bundle.min.js.map
+bundle.*

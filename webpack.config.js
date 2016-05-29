@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -8,10 +9,10 @@ module.exports = {
         'webpack/hot/dev-server',
         './js/index.js'
     ],
-    devtool: 'source-map',
+    devtool: !isProd && 'source-map',
     output: {
         path: __dirname,
-        filename: isProd ? 'bundle.min.js' : 'bundle.js'
+        filename: 'bundle.js'
     },
     resolve: {
         root: path.resolve(__dirname),
@@ -34,10 +35,10 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: [
-                    'style',
-                    'css?camelCase&sourceMap&modules&localIdentName=[local]_[hash:base64:5]'
-                ].join('!')
+                loader: ExtractTextPlugin.extract(
+                    'style-loader',
+                    'css-loader?camelCase&sourceMap&modules&localIdentName=[local]_[hash:base64:5]'
+                )
             }
         ]
     },
@@ -50,7 +51,8 @@ module.exports = {
     },
     plugins: [
         new webpack.NoErrorsPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new ExtractTextPlugin('bundle.css')
     ]
 };
 
