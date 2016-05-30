@@ -43,5 +43,5 @@ export function childrenTpl(props) {
 }
 
 function styleClassName(props) {
-    return props.classNames.map(className => style[className]);
+    return props.classNames.map(className => style[className]).join(' ');
 }
