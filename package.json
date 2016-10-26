@@ -4,14 +4,14 @@
   "description": "Vanilla implementation of bowling scoring system",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/diakt/bowling.git"
+    "url": "git+https://github.com/omdriven/bowling.git"
   },
   "author": "Dmitry Ryzhov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/diakt/bowling/issues"
+    "url": "https://github.com/omdriven/bowling/issues"
   },
-  "homepage": "https://github.com/diakt/bowling#readme",
+  "homepage": "https://github.com/omdriven/bowling#readme",
   "scripts": {
     "postinstall": "npm run test && npm start",
     "test": "./node_modules/mocha-webpack/bin/mocha-webpack --webpack-config webpack.tests.config.js \"src/**/*.test.js\"",
