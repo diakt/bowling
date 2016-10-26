@@ -11,7 +11,7 @@ export function titleTpl() {
     return createNode(`
         <div class="${style.title}">
             Minimalistic interface
-            for&nbsp;a&nbsp;<a class="${style.link}" href="https://github.com/diakt/bowling">bowling scoring system<a/>
+            for&nbsp;a&nbsp;<a class="${style.link}" href="https://github.com/omdriven/bowling">bowling scoring system<a/>
         </div>
     `)
 }

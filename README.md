@@ -1,9 +1,9 @@
 
 ##Bowling Challenge
 
-Brief is available at [wiki](https://github.com/diakt/bowling/wiki/Brief).
+Brief is available at [wiki](https://github.com/omdriven/bowling/wiki/Brief).
 
-Demo is available at [diakt.github.io/bowling](http://diakt.github.io/bowling/). 
+Demo is available at [omdriven.github.io/bowling](http://omdriven.github.io/bowling/). 
 
 ###Build
 
